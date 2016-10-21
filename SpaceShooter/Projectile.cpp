@@ -5,25 +5,29 @@
 
 Projectile::Projectile()
 {
-	x = 640;
-	y = 360;
 	SetSpriteTexture();
 }
 
 void Projectile::Update() {
-	projectileSprite.move(sf::Vector2f(0, -0.1f));
+	// Set Player position by the x and y of the screen
+	projectileSprite.move(sf::Vector2f(0, -2));
 }
 
-void Projectile::Spawn(int xPos, int yPos, sf::RenderWindow& window) {
-	x = xPos;
-	y = yPos;
-	std::cout << x << " " << y << std::endl;
+void Projectile::Spawn(Player* player, sf::RenderWindow& window) {
+	int xPos = player->x;
+	int yPos = player->y;
+	Projectile* projectile = new Projectile();
+	projectile->projectileSprite.setPosition(sf::Vector2f(xPos, yPos));
 	sf::Time elapsed1 = clock.getElapsedTime();
-	if (elapsed1 >= sf::seconds(1.0f)) {
-		std::cout << "wow" << std::endl;
+	if (elapsed1 >= sf::seconds(0.5f)) {
+		std::cout << projectile << std::endl;
+		projectileList.push_back(*projectile);
 		clock.restart();
 	}
-	window.draw(projectileSprite);
+	for (auto& projectile : projectileList) {
+		window.draw(projectile.projectileSprite);
+		projectile.Update();
+	}
 }
 
 void Projectile::Draw() {
@@ -38,8 +42,6 @@ void Projectile::Colliding(Player player) {
 }
 
 void Projectile::SetSpriteTexture() {
-	// Set Player position in the middle of the screen
-	projectileSprite.setPosition(sf::Vector2f(x, y));
 	// Set Player sprite to Player.png
 	if (!projectileTexture.loadFromFile("Sprite/Projectile.png")) {
 		std::cout << "Error" << std::endl;
@@ -47,8 +49,8 @@ void Projectile::SetSpriteTexture() {
 	projectileTexture.setSmooth(true);
 	projectileSprite.setTexture(projectileTexture);
 	// Adjusting the size
-	//projectileSprite.setScale(sf::Vector2f(0.1, 0.1));
-	//projectileSprite.setOrigin(sf::Vector2f(projectileSprite.getTexture()->getSize().x * 0.5, playerSprite.getTexture()->getSize().y * 0.5));
+	projectileSprite.setScale(sf::Vector2f(0.5, 0.5));
+	projectileSprite.setOrigin(sf::Vector2f(projectileSprite.getTexture()->getSize().x * 0.5, projectileSprite.getTexture()->getSize().y * 0.5));
 }
 
 

@@ -7,8 +7,9 @@
 
 Player::Player()
 {
-	
 	std::cout << "I'm alive!" << std::endl;
+	x = 640;
+	y = 360;
 	SetSpriteTexture();
 }
 
@@ -26,9 +27,9 @@ void Player::Controls() {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {y++;}
 }
 
-void Player::Shoot() {
-	std::cout << "Shoot" << std::endl;
-	Projectile* projectile = new Projectile();
+void Player::GetPlayerPos() {
+	int playerPosX, playerPosY;
+	//std::cout << "x " << playerSprite.getPosition().x << " y " << playerSprite.getPosition().y << std::endl;
 	// TODO Make Projectile class and spawn it
 }
 
@@ -44,8 +45,8 @@ void Player::SetSpriteTexture() {
 	playerTexture.setSmooth(true);
 	playerSprite.setTexture(playerTexture);
 	// Adjusting the size
-	//playerSprite.setScale(sf::Vector2f(0.1, 0.1));
-	//playerSprite.setOrigin(sf::Vector2f(playerSprite.getTexture()->getSize().x * 0.5, playerSprite.getTexture()->getSize().y * 0.5));
+	playerSprite.setScale(sf::Vector2f(0.5, 0.5));
+	playerSprite.setOrigin(sf::Vector2f(playerSprite.getTexture()->getSize().x * 0.5, playerSprite.getTexture()->getSize().y * 0.5));
 }
 
 

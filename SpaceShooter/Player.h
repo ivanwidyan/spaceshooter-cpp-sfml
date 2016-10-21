@@ -12,7 +12,7 @@ public:
 
 	// Declare Controls and Shoots functions
 	void Controls();
-	void Shoot();
+	void GetPlayerPos();
 	void Colliding();
 	void SetSpriteTexture();
 	void Update();

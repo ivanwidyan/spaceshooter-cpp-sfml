@@ -33,14 +33,10 @@ int main() {
 		window.clear();
 		
 		window.draw(background);
-		
+		projectile->Update();
+		projectile->Spawn(player, window);
 		player->Update();
 		window.draw(player->playerSprite);
-		//window.draw(player->playerSprite);
-		/*projectile->Update();
-		projectile->Spawn(640, 720, window);
-		projectile->Update();
-		projectile->Spawn(800, 500, window);*/
 
 		window.display();
 	}
