@@ -11,14 +11,13 @@ public:
 	std::vector<Projectile> projectileList;
 	sf::Sprite projectileSprite;
 	int x = 0, y = 0;
+	int playerNum = 0;
 	float delay = 0;
 
 	void Colliding(Player);
+	void overScreen();
 	void SetSpriteTexture();
-
-	void Draw();
-
-	Projectile();
+	Projectile(Player * player);
 	void Update();
 	void Spawn(Player* player, sf::RenderWindow & window);
 	~Projectile();

@@ -5,12 +5,14 @@
 
 //void SetSpriteTexture();
 
-Player::Player()
+Player::Player(int playerNum)
 {
+	playerNumber = playerNum;
 	std::cout << "I'm alive!" << std::endl;
-	x = 640;
-	y = 360;
+	std::cout << playerNumber << std::endl;
 	SetSpriteTexture();
+	if (playerNumber == 1){x = 960; y = 540;}
+	else if (playerNumber == 2) { x = 320; y = 540; }
 }
 
 void Player::Update() {
@@ -20,11 +22,19 @@ void Player::Update() {
 }
 
 void Player::Controls() {
-	//Keyboard Controlls
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {y--;}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {x--;}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {x++;}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {y++;}
+	//Keyboard Controls Player 1
+	if (playerNumber == 1) {
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) { y--; }
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) { x--; }
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) { x++; }
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) { y++; }
+	}
+	else if (playerNumber == 2) {
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) { y--; }
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) { x--; }
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) { x++; }
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) { y++; }
+	}
 }
 
 void Player::GetPlayerPos() {
@@ -35,14 +45,15 @@ void Player::GetPlayerPos() {
 
 void Player::Colliding() {
 	// TODO Make a colliding with enemy and projectile
-	// if Collide with projectile healt --;
+	// if Collide with projectile health --;
 }
 
 void Player::SetSpriteTexture() {
 	// Set Player position in the middle of the screen
 	// Set Player sprite to Player.png
-	if (!playerTexture.loadFromFile("Sprite/Player1.png")) {}
-	playerTexture.setSmooth(true);
+	if (playerNumber == 1) { if (!playerTexture.loadFromFile("Sprite/Player1.png")) {} }
+	else if (playerNumber == 2) { if (!playerTexture.loadFromFile("Sprite/Player2.png")) {} }
+	//playerTexture.setSmooth(true);
 	playerSprite.setTexture(playerTexture);
 	// Adjusting the size
 	playerSprite.setScale(sf::Vector2f(0.5, 0.5));
