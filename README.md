@@ -1,6 +1,6 @@
 #spaceshooter-cpp-sfml
 Creating a Space Shooter game from scratch using C++ and SFML in Visual Studio.
-![screenshoot](https://cloud.githubusercontent.com/assets/12959761/19630546/f5b7fda0-998c-11e6-83cf-c57fb1dce096.jpg)
+![alien invasion](https://cloud.githubusercontent.com/assets/12959761/19656230/5e4ebae2-9a1f-11e6-85d8-2a68367b0673.JPG)
 
 ##SFML - Simple and Fast Multimedia Library
 
