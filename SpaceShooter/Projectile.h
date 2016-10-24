@@ -1,5 +1,5 @@
 #pragma once
-
+#include "Enemy.h"
 #include "Projectile.h"
 #include "SFML\Window.hpp"
 #include "SFML\Graphics.hpp"
@@ -13,20 +13,19 @@ public:
 	~Projectile();
 	
 	std::vector<Projectile*> projectileList;
-	sf::Sprite projectileSprite;
 	int playerNum = 0;
 	float delay = 0;
 	bool collide = false;
 
 	void Update();
-	void Spawn(Player * player, Player * other, sf::RenderWindow & window);
+	void Spawn(Player *, Enemy *, sf::RenderWindow &);
 	void Start();
 
-	void Colliding(Player * player, Projectile * projectile);
+	void Colliding(Enemy *, Projectile *);
 	
-
 private:
 	sf::Clock clock; // starts the clock
 	sf::Texture projectileTexture;
+	sf::Sprite projectileSprite;
 };
 

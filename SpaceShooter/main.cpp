@@ -3,16 +3,20 @@
 #include <iostream>
 #include "Player.h"
 #include "Projectile.h"
+#include "Enemy.h"
 #include "Background.h"
 
 int main() {
-	sf::RenderWindow window(sf::VideoMode(1280, 720), "Space Shooter", sf::Style::Titlebar | sf::Style::Close);
+	sf::RenderWindow window(sf::VideoMode(1280, 720), "Alien Invasion", sf::Style::Titlebar | sf::Style::Close);
 
 	//Create two players and projectile
 	Player* player1 = new Player(1);
 	Player* player2 = new Player(2);
 	Projectile* projectilePlayer1 = new Projectile(player1);
 	Projectile* projectilePlayer2 = new Projectile(player2);
+	
+	// Create enemy
+	Enemy* enemy = new Enemy();
 
 	// Create Background
 	Background* background1 = new Background(0);
@@ -35,11 +39,14 @@ int main() {
 
 		// Projectile Player 1 move and spawn
 		projectilePlayer1->Update();
-		projectilePlayer1->Spawn(player1, player2, window);
+		projectilePlayer1->Spawn(player1, enemy, window);
 
 		// Projectile Player 2 move and spawn
 		projectilePlayer2->Update();
-		projectilePlayer2->Spawn(player2, player1, window);
+		projectilePlayer2->Spawn(player2, enemy, window);
+
+		// Enemies
+		enemy->Spawn(window);
 		
 		// Player 1 and 2 Controll and draw
 		player1->Update(window);

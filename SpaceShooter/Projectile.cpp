@@ -1,5 +1,6 @@
 #include "Projectile.h"
 #include "Player.h"
+#include "Enemy.h"
 #include "SFML\Window.hpp"
 #include <iostream>
 
@@ -13,7 +14,7 @@ void Projectile::Update() {
 	// Set Player position by the x and y of the screen
 	projectileSprite.move(sf::Vector2f(0, -2));}
 
-void Projectile::Spawn(Player* player, Player* other, sf::RenderWindow& window) {
+void Projectile::Spawn(Player* player, Enemy* enemy, sf::RenderWindow& window) {
 	int xPos = player->x;
 	int yPos = player->y;
 	Projectile* projectile = new Projectile(player);
@@ -28,23 +29,17 @@ void Projectile::Spawn(Player* player, Player* other, sf::RenderWindow& window) 
 		if (projectile->collide != true && projectile->projectileSprite.getPosition().y >= 25) {
 			window.draw(projectile->projectileSprite);
 			projectile->Update();
-			projectile->Colliding(other, projectile);
+			projectile->Colliding(enemy, projectile);
 		}
 	}
-
-	// Deleting the first list
-	/*for (int i = 0; i < projectileList.size(); ++i) {
-		if (projectileList[i]->projectileSprite.getPosition().y <= 50) {
-			//std::cout << ' ' << projectileList[i];
-			projectileList.erase(projectileList.begin());
-		}
-	}*/
 }
 
-void Projectile::Colliding(Player* other, Projectile* projectile) {
-	if (projectileSprite.getGlobalBounds().intersects(other->playerSprite.getGlobalBounds())) {
+void Projectile::Colliding(Enemy* enemy, Projectile* projectile) {
+	if (projectileSprite.getGlobalBounds().intersects(enemy->enemySprite.getGlobalBounds())) {
+		enemy->health -= 1;
+		std::cout << enemy->health << std::endl;
 		projectile->collide = false;
-		other->health -= 1;
+		projectile->projectileSprite.setPosition(0, -10);
 	}
 }
 

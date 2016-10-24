@@ -2,8 +2,6 @@
 #include "Player.h"
 #include <string>
 #include "Projectile.h"
-#include "SFML\Graphics.hpp"
-#include "SFML\Window.hpp"
 
 //void SetSpriteTexture();
 
@@ -17,10 +15,12 @@ Player::Player(int playerNum)
 }
 
 void Player::Update(sf::RenderWindow& window) {
-	playerSprite.setPosition(sf::Vector2f(x, y));
-	Controls();
-	Colliding();
-	window.draw(playerSprite);
+	if (health > 0) {
+		playerSprite.setPosition(sf::Vector2f(x, y));
+		Controls();
+		Colliding();
+		window.draw(playerSprite);
+	}
 }
 
 void Player::Controls() {
