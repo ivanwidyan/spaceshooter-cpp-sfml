@@ -4,15 +4,15 @@
 class Background
 {
 public:
-	Background(int y);
 	void Update(sf::RenderWindow & window);
 	void Looping();
 	void SetSpriteTexture(int y);
+	
+	Background(int y);
 	~Background();
 
-	sf::Sprite backgroundSprite;
-
 private:
+	sf::Sprite backgroundSprite;
 	sf::Texture backgroundTexture;
 };
 

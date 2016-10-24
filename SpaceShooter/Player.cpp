@@ -1,9 +1,7 @@
 #include <iostream>
-#include "Player.h"
 #include <string>
+#include "Player.h"
 #include "Projectile.h"
-
-//void SetSpriteTexture();
 
 Player::Player(int playerNum)
 {
@@ -15,11 +13,15 @@ Player::Player(int playerNum)
 }
 
 void Player::Update(sf::RenderWindow& window) {
-	if (health > 0) {
+	if (health > 0) { // Activate all of the Player functions if health > 0
 		playerSprite.setPosition(sf::Vector2f(x, y));
 		Controls();
 		Colliding();
 		window.draw(playerSprite);
+	}
+	else {
+		playerSprite.setPosition(sf::Vector2f(-640, y));
+		status = "Dead";
 	}
 }
 
@@ -49,23 +51,24 @@ void Player::ShowUI(sf::RenderWindow& window) {
 }
 
 void Player::SetSpriteTexture() {
-	if (!font.loadFromFile("Font/mark_my_words.ttf")) {}
+	// Create text for UI
+	if (!font.loadFromFile("Font/BebasNeue.otf")) {}
 	text.setFont(font);
 	text.setColor(sf::Color::Black);
 	text.setCharacterSize(72);
-	// Set Player sprite to Player.png
+	// Set different sprite for player 1 and player 2
 	if (playerNumber == 1) { 
 		if (!playerTexture.loadFromFile("Sprite/Player1.png")) {}
 		status = "Player2\n";
 	}
 	else if (playerNumber == 2) { if (!playerTexture.loadFromFile("Sprite/Player2.png")) {}
 		status = "Player1\n";
-		text.setPosition(1050, 0);
+		text.setPosition(1075, 0);
 	}
 	playerTexture.setSmooth(true);
 	playerSprite.setTexture(playerTexture);
 	// Adjusting the Player sprite size and set the origin to the middle
-	playerSprite.setScale(sf::Vector2f(0.5, 0.5));
+	playerSprite.setScale(sf::Vector2f(0.2, 0.2));
 	playerSprite.setOrigin(sf::Vector2f(playerSprite.getTexture()->getSize().x * 0.5, playerSprite.getTexture()->getSize().y * 0.5));
 
 	

@@ -9,14 +9,15 @@ public:
 	std::vector<Enemy*> enemyList;
 	sf::Sprite enemySprite;
 
+	int randRange(int low, int high);
 	void Update();
 	void Spawn(sf::RenderWindow & window);
 	void SetSpriteTexture();
-	int randRange(int low, int high);
+
 	Enemy();
 	~Enemy();
 private:
-	sf::Clock clock; // starts the clock
+	sf::Clock clock;
 	sf::Texture enemyTexture;
 };
 

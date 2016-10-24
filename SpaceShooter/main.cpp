@@ -1,4 +1,3 @@
-#include "SFML\Graphics.hpp"
 #include "SFML\Window.hpp"
 #include <iostream>
 #include "Player.h"
@@ -7,6 +6,7 @@
 #include "Background.h"
 
 int main() {
+	srand(time(NULL));
 	sf::RenderWindow window(sf::VideoMode(1280, 720), "Alien Invasion", sf::Style::Titlebar | sf::Style::Close);
 
 	//Create two players and projectile
@@ -39,19 +39,20 @@ int main() {
 
 		// Projectile Player 1 move and spawn
 		projectilePlayer1->Update();
-		projectilePlayer1->Spawn(player1, enemy, window);
+		projectilePlayer1->Spawn(player1, enemy->enemyList, window);
 
 		// Projectile Player 2 move and spawn
 		projectilePlayer2->Update();
-		projectilePlayer2->Spawn(player2, enemy, window);
+		projectilePlayer2->Spawn(player2, enemy->enemyList, window);
 
-		// Enemies
+		// Spawn Enemies
 		enemy->Spawn(window);
 		
 		// Player 1 and 2 Controll and draw
 		player1->Update(window);
 		player2->Update(window);
 
+		// Display UI Score for Player 1 and PLayer 2
 		player1->ShowUI(window);
 		player2->ShowUI(window);
 

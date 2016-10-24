@@ -18,10 +18,9 @@ public:
 	bool collide = false;
 
 	void Update();
-	void Spawn(Player *, Enemy *, sf::RenderWindow &);
+	void Spawn(Player * player, std::vector<Enemy*> enemylist, sf::RenderWindow & window);
+	void Colliding(Player * player, std::vector<Enemy*> enemylist, Projectile * projectile);
 	void Start();
-
-	void Colliding(Enemy *, Projectile *);
 	
 private:
 	sf::Clock clock; // starts the clock

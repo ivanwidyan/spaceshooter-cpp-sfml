@@ -13,14 +13,14 @@ void Background::Update(sf::RenderWindow& window) {
 	window.draw(backgroundSprite);
 }
 
-void Background::Looping() {
+void Background::Looping() { // Loop the background
 	if (backgroundSprite.getPosition().y >= 720) {
 		backgroundSprite.setPosition(0, -720);
 	}
 }
 
 void Background::SetSpriteTexture(int y) {
-	// Set Player position on the top left corner of the screen
+	// Set background y position by the input
 	backgroundSprite.setPosition(0, y);
 	// Set Background sprite to grass.jpg
 	if (!backgroundTexture.loadFromFile("Sprite/grass.jpg")) {}

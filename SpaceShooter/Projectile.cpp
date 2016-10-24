@@ -1,45 +1,44 @@
 #include "Projectile.h"
 #include "Player.h"
 #include "Enemy.h"
-#include "SFML\Window.hpp"
 #include <iostream>
 
 Projectile::Projectile(Player* player)
 {
-	playerNum = player->playerNumber;
+	playerNum = player->playerNumber; // Check the player number
 	Start();
 }
 
 void Projectile::Update() {
-	// Set Player position by the x and y of the screen
-	projectileSprite.move(sf::Vector2f(0, -2));}
+	projectileSprite.move(sf::Vector2f(0, -3));} // Set the speed of projectile
 
-void Projectile::Spawn(Player* player, Enemy* enemy, sf::RenderWindow& window) {
-	int xPos = player->x;
-	int yPos = player->y;
+void Projectile::Spawn(Player* player, std::vector<Enemy*> enemylist, sf::RenderWindow& window) {
 	Projectile* projectile = new Projectile(player);
-	projectile->projectileSprite.setPosition(sf::Vector2f(xPos, yPos-85));
+	projectile->projectileSprite.setPosition(sf::Vector2f(player->x, player->y -85)); // Set projectile spawn position in front of the player
 	sf::Time elapsed1 = clock.getElapsedTime();
-	if (elapsed1 >= sf::seconds(0.5f)) {
+	if (elapsed1 >= sf::seconds(0.25f)) { // Spawn projectile every ... seconds
 		projectileList.push_back(projectile);
 		clock.restart();}
 
 	// For every Projectile in projectileList do
 	for (Projectile* projectile : projectileList) {
-		if (projectile->collide != true && projectile->projectileSprite.getPosition().y >= 25) {
+		if (projectile->collide != true && projectile->projectileSprite.getPosition().y >= 0) { // if projectile not collide and y position >= 0
 			window.draw(projectile->projectileSprite);
 			projectile->Update();
-			projectile->Colliding(enemy, projectile);
+			projectile->Colliding(player, enemylist, projectile);
 		}
 	}
 }
 
-void Projectile::Colliding(Enemy* enemy, Projectile* projectile) {
-	if (projectileSprite.getGlobalBounds().intersects(enemy->enemySprite.getGlobalBounds())) {
-		enemy->health -= 1;
-		std::cout << enemy->health << std::endl;
-		projectile->collide = false;
-		projectile->projectileSprite.setPosition(0, -10);
+void Projectile::Colliding(Player* player, std::vector<Enemy*> enemylist, Projectile* projectile) {
+	// If Colliding with enemy in enemyList, Stop drawing projectile, enemy health - 1, and player score + 100
+	for (Enemy* enemy : enemylist){
+		if (projectileSprite.getGlobalBounds().intersects(enemy->enemySprite.getGlobalBounds())) {
+			enemy->health--;
+			player->score += 100;
+			projectile->collide = false;
+			projectile->projectileSprite.setPosition(0, -10);
+		}
 	}
 }
 
@@ -56,5 +55,4 @@ void Projectile::Start() {
 
 Projectile::~Projectile()
 {
-	std::cout << "I'm deleted" << std::endl;
 }
