@@ -1,5 +1,11 @@
 #include "Background.h"
-#include "SFML\Window.hpp"
+#ifdef _WIN64
+	#include "SFML\Window.hpp"
+#endif
+
+#ifdef __unix__
+	#include <SFML/Window.hpp>
+#endif
 #include <iostream>
 
 Background::Background(int y)

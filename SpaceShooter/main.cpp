@@ -1,4 +1,10 @@
-#include "SFML\Window.hpp"
+#ifdef _WIN64
+	#include "SFML\Window.hpp"
+#endif
+
+#ifdef __unix__
+	#include <SFML/Window.hpp>
+#endif
 #include <iostream>
 #include "Player.h"
 #include "Projectile.h"
@@ -14,7 +20,7 @@ int main() {
 	Player* player2 = new Player(2);
 	Projectile* projectilePlayer1 = new Projectile(player1);
 	Projectile* projectilePlayer2 = new Projectile(player2);
-	
+
 	// Create enemy
 	Enemy* enemy = new Enemy();
 
@@ -47,7 +53,7 @@ int main() {
 
 		// Spawn Enemies
 		enemy->Spawn(window);
-		
+
 		// Player 1 and 2 Controll and draw
 		player1->Update(window);
 		player2->Update(window);

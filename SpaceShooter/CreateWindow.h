@@ -1,6 +1,15 @@
 #pragma once
-#include "SFML\Graphics.hpp"
-#include "SFML\Window.hpp"
+
+#ifdef _WIN64
+	#include "SFML\Graphics.hpp"
+	#include "SFML\Window.hpp"
+#endif
+
+#ifdef __unix__
+	#include <SFML/Graphics.hpp>
+	#include <SFML/Window.hpp>
+#endif
+
 #include <iostream>
 
 class CreateWindow
@@ -10,4 +19,3 @@ public:
 	CreateWindow();
 	~CreateWindow();
 };
-

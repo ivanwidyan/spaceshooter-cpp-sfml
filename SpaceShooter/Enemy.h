@@ -1,5 +1,12 @@
 #pragma once
-#include "SFML\Graphics.hpp"
+
+#ifdef _WIN64
+	#include "SFML\Graphics.hpp"
+#endif
+
+#ifdef __unix__
+	#include <SFML/Graphics.hpp>
+#endif
 
 class Enemy
 {
@@ -20,4 +27,3 @@ private:
 	sf::Clock clock;
 	sf::Texture enemyTexture;
 };
-
