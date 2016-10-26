@@ -28,7 +28,7 @@ public:
 	bool collide = false;
 
 	void Update();
-	void Spawn(Player * player, std::vector<Enemy*> enemylist, sf::RenderWindow & window);
+	void Spawn(Player * player, std::vector<Enemy*> &enemylist, sf::RenderWindow & window);
 	void Colliding(Player * player, std::vector<Enemy*> &enemylist, Projectile * projectile);
 	void Start();
 

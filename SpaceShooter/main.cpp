@@ -44,8 +44,7 @@ int main() {
 		// Draw background
 		background1->Update(window);
 		background2->Update(window);
-
-		int i,j;
+		
 		// Projectile Player 1 move and spawn
 		projectilePlayer1->Update();
 		projectilePlayer1->Spawn(player1, enemy->enemyList, window);
