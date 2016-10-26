@@ -1,4 +1,6 @@
 #include "Enemy.h"
+#include <iostream>
+
 #include <ctime>
 #include <cstdlib>
 
@@ -9,6 +11,17 @@ Enemy::Enemy()
 
 void Enemy::Update() {
 	enemySprite.move(sf::Vector2f(0, 0.5f)); // Move y 0.25 every update
+}
+
+void Enemy::Clear() {
+	for (size_t i = 0; i < enemyList.size(); i++) {
+   delete enemyList[i];
+	}
+}
+
+void Enemy::Die(size_t idx) {
+	enemyList.erase (enemyList.begin()+idx);
+  delete enemyList[idx];
 }
 
 void Enemy::Spawn(sf::RenderWindow& window) {
@@ -43,4 +56,5 @@ int Enemy::randRange(int low, int high) { return rand() % (high - low) + low;}
 
 Enemy::~Enemy()
 {
+	std::cout << "Enemy Deleted" << '\n';
 }

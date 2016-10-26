@@ -1,9 +1,17 @@
 #pragma once
-#include "SFML\Graphics.hpp"
+
+#ifdef _WIN64
+	#include "SFML\Graphics.hpp"
+#endif
+
+#ifdef __unix__
+	#include <SFML/Graphics.hpp>
+#endif
+
 
 class Player
 {
-public:	
+public:
 	int playerNumber = 0;
 	int health = 3;
 	int x = 0, y = 0;
@@ -25,4 +33,3 @@ private:
 	sf::Texture playerTexture;
 	sf::Font font;
 };
-

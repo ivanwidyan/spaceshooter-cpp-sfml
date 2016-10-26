@@ -9,10 +9,16 @@ Projectile::Projectile(Player* player)
 	Start();
 }
 
+void Projectile::Clear(){
+	for (size_t i = 0; i < projectileList.size(); i++) {
+   delete projectileList[i];
+	}
+}
+
 void Projectile::Update() {
 	projectileSprite.move(sf::Vector2f(0, -3));} // Set the speed of projectile
 
-void Projectile::Spawn(Player* player, std::vector<Enemy*> enemylist, sf::RenderWindow& window) {
+void Projectile::Spawn(Player* player, std::vector<Enemy*> &enemylist, sf::RenderWindow& window) {
 	Projectile* projectile = new Projectile(player);
 	projectile->projectileSprite.setPosition(sf::Vector2f(player->x, player->y -85)); // Set projectile spawn position in front of the player
 	sf::Time elapsed1 = clock.getElapsedTime();
@@ -21,23 +27,30 @@ void Projectile::Spawn(Player* player, std::vector<Enemy*> enemylist, sf::Render
 		clock.restart();}
 
 	// For every Projectile in projectileList do
-	for (Projectile* projectile : projectileList) {
-		if (projectile->collide != true && projectile->projectileSprite.getPosition().y >= 0) { // if projectile not collide and y position >= 0
-			window.draw(projectile->projectileSprite);
-			projectile->Update();
-			projectile->Colliding(player, enemylist, projectile);
+	for (size_t i=0; i<projectileList.size(); i++){
+		if (projectileList[i]->collide != true && projectileList[i]->projectileSprite.getPosition().y >= 0) { // if projectile not collide and y position >= 0
+			window.draw(projectileList[i]->projectileSprite);
+			projectileList[i]->Update();
+			projectileList[i]->Colliding(player, enemylist, projectileList[i]);
+		}
+		else if (projectileList[i]->projectileSprite.getPosition().y <= 0) {
+			delete projectileList[i];
+			projectileList.erase (projectileList.begin()+i);
 		}
 	}
 }
 
-void Projectile::Colliding(Player* player, std::vector<Enemy*> enemylist, Projectile* projectile) {
+void Projectile::Colliding(Player* player, std::vector<Enemy*> &enemylist, Projectile* projectile) {
 	// If Colliding with enemy in enemyList, Stop drawing projectile, enemy health - 1, and player score + 100
-	for (Enemy* enemy : enemylist){
-		if (projectileSprite.getGlobalBounds().intersects(enemy->enemySprite.getGlobalBounds())) {
-			enemy->health--;
+	// std::cout << enemylist.size() << "\n";
+	for (size_t i=0; i<enemylist.size(); i++){
+		if (projectileSprite.getGlobalBounds().intersects(enemylist[i]->enemySprite.getGlobalBounds())) {
+			enemylist[i]->health--;
 			player->score += 100;
 			projectile->collide = false;
 			projectile->projectileSprite.setPosition(0, -10);
+			delete enemylist[i];
+			enemylist.erase (enemylist.begin()+i);
 		}
 	}
 }
@@ -55,4 +68,5 @@ void Projectile::Start() {
 
 Projectile::~Projectile()
 {
+	std::cout << "Projectile Deleted" << '\n';
 }
