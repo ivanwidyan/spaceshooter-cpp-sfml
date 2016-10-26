@@ -1,7 +1,8 @@
 #include "Enemy.h"
+#include <iostream>
+
 #include <ctime>
 #include <cstdlib>
-#include <iostream>
 
 Enemy::Enemy()
 {
@@ -9,7 +10,18 @@ Enemy::Enemy()
 }
 
 void Enemy::Update() {
-	enemySprite.move(sf::Vector2f(0, 0.75f)); // Move y 0.25 every update
+	enemySprite.move(sf::Vector2f(0, 0.5f)); // Move y 0.25 every update
+}
+
+void Enemy::Clear() {
+	for (size_t i = 0; i < enemyList.size(); i++) {
+   delete enemyList[i];
+	}
+}
+
+void Enemy::Die(size_t idx) {
+	enemyList.erase (enemyList.begin()+idx);
+  delete enemyList[idx];
 }
 
 void Enemy::Spawn(sf::RenderWindow& window) {
@@ -17,14 +29,6 @@ void Enemy::Spawn(sf::RenderWindow& window) {
 	Enemy* enemy = new Enemy();
 	if (elapsed1 >= sf::seconds(2)) { // Spawn enemy for every ... seconds
 		enemyList.push_back(enemy);
-		for (int i = 0; i < enemyList.size(); i++) {
-			if (enemyList[i]->enemySprite.getPosition().y > 720) {
-				std::cout << enemyList[i];
-				delete enemyList[i];
-			}
-			std::cout << enemyList[i] << std::endl;
-		}
-		std::cout << std::endl;
 		enemy->enemySprite.setPosition(enemy->randRange(50, 1230), -25); // Random position for enemy
 		clock.restart();
 	}
@@ -34,9 +38,7 @@ void Enemy::Spawn(sf::RenderWindow& window) {
 		if (enemy->health > 0) { // Stop drawing if enemy health <= 0
 			window.draw(enemy->enemySprite);
 			enemy->Update();
-		} else {
-			enemy->enemySprite.setPosition(-1280, 0);
-		}
+		} else {enemy->enemySprite.setPosition(-50, 0);}
 	}
 }
 
@@ -54,5 +56,5 @@ int Enemy::randRange(int low, int high) { return rand() % (high - low) + low;}
 
 Enemy::~Enemy()
 {
-	std::cout << "Enemy deleted" << std::endl;
+	std::cout << "Enemy Deleted" << '\n';
 }
