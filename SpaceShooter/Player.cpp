@@ -27,17 +27,63 @@ void Player::Update(sf::RenderWindow& window) {
 
 void Player::Controls() {
 	//Keyboard Controls for Player 1
+	y -= forward; y += back; x -= left; x += right; // Apply the inertia effect on Player x and y
 	if (playerNumber == 1) {
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && y >= 0) { y--; }
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && x >= 0) { x--; }
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && x <= 1280) { x++; }
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && y <= 720) { y++; }}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && y >= 0) {
+			back = 0; left = 0; right = 0;
+			if (speed <= 1.0) { speed += 0.1; }
+			forward = speed;
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && x >= 0) {
+			back = 0; forward = 0; right = 0;
+			if (speed <= 1.0) { speed += 0.1; }
+			left = speed;
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && x <= 1280) {
+			back = 0; left = 0; forward = 0;
+			if (speed <= 1.0) { speed += 0.1; }
+			right = speed;
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && y <= 720) {
+			forward = 0; left = 0; right = 0;
+			if (speed <= 1.0) { speed += 0.1; }
+			back = speed;
+		}
+		else { Inertia(); } // Start the inertia
+	}
+
 	//Keyboard Controls for Player 2
 	else if (playerNumber == 2) {
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) && y >= 0) { y--; }
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) && x >= 0) { x--; }
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) && x <= 1280) { x++; }
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) && y <= 720) { y++; }}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) && y >= 0) {
+			back = 0; left = 0; right = 0;
+			if (speed <= 1.0) { speed += 0.1; }
+			forward = speed;
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) && x >= 0) {
+			back = 0; forward = 0; right = 0;
+			if (speed <= 1.0) { speed += 0.1; }
+			left = speed;
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) && x <= 1280) {
+			back = 0; left = 0; forward = 0;
+			if (speed <= 1.0) { speed += 0.1; }
+			right = speed;
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) && y <= 720) {
+			forward = 0; left = 0; right = 0;
+			if (speed <= 1.0) { speed += 0.1; }
+			back = speed;
+		}
+		else { Inertia(); } // Start the inertia
+	}
+}
+
+void Player::Inertia() { // Give inertia effect to the player sprite
+	if (forward > 0 && y >= 0) { forward -= 0.01;}
+	else if (back > 0 && y <= 720) { back -= 0.01;}
+	else if (left > 0 && x >= 0) { left -= 0.01; }
+	else if (right > 0 && x <= 1280) { right -= 0.01; }
+	else { forward = 0; back = 0; left = 0; right = 0;	speed = 0; }
 }
 
 void Player::Colliding() {
@@ -45,7 +91,7 @@ void Player::Colliding() {
 	// if Collide with projectile health --;
 }
 
-void Player::ShowUI(sf::RenderWindow& window) {
+void Player::ShowUI(sf::RenderWindow& window) { // Set and draw the UI for Player
 	text.setString(status + std::to_string(score));
 	window.draw(text);
 }
