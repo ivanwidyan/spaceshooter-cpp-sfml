@@ -8,5 +8,27 @@ SFML is a simple, fast, cross-platform and object-oriented multimedia API. It pr
 graphics, audio and network.
 It is originally written in C++, and this project is its official binding for the C language.
 
+##Development
+We're planning to add more features in the future. Want to contribute? Great! Just contact me or maybe you wanna try it first.
+
+##Features
+**Players:**
+* Two players
+* Auto shoot
+* Keyboard controls
+* Inertia
+
+**Projectile:**
+* Collision function
+
+**Enemies:**
+* Enemy waves
+
+**Background:**
+* Moving and looping background
+
+**UI:**
+* Point displayed
+
 ##Authors
 Ivan Widyan - Developer (ivanwidyan@yahoo.com)
