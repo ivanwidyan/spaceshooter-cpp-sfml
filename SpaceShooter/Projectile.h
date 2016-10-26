@@ -29,7 +29,7 @@ public:
 
 	void Update();
 	void Spawn(Player * player, std::vector<Enemy*> enemylist, sf::RenderWindow & window);
-	void Colliding(Player * player, std::vector<Enemy*> enemylist, Projectile * projectile);
+	void Colliding(Player * player, std::vector<Enemy*> &enemylist, Projectile * projectile);
 	void Start();
 
 private:

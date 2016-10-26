@@ -30,10 +30,12 @@ int main() {
 	while (window.isOpen()) {
 		sf::Event event;
 		while (window.pollEvent(event)) {
-			switch (event.type)
+			if (event.type==sf::Event::Closed)
 			{
-			case sf::Event::Closed:
+
 				window.close();
+				// delete background1;
+
 				break;
 			}
 		}
@@ -43,6 +45,7 @@ int main() {
 		background1->Update(window);
 		background2->Update(window);
 
+		int i,j;
 		// Projectile Player 1 move and spawn
 		projectilePlayer1->Update();
 		projectilePlayer1->Spawn(player1, enemy->enemyList, window);
@@ -50,6 +53,7 @@ int main() {
 		// Projectile Player 2 move and spawn
 		projectilePlayer2->Update();
 		projectilePlayer2->Spawn(player2, enemy->enemyList, window);
+
 
 		// Spawn Enemies
 		enemy->Spawn(window);
@@ -64,5 +68,13 @@ int main() {
 
 		window.display();
 	}
+	enemy->Clear();
+	if (enemy) delete enemy;
+	if (background1) delete background1;
+	if (background2) delete background2;
+	if (player1) delete player1;
+	if (player2) delete player2;
+	if (projectilePlayer1) delete projectilePlayer1;
+	if (projectilePlayer2) delete projectilePlayer2;
 
 }
