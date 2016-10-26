@@ -1,6 +1,5 @@
 #include "Enemy.h"
 #include <iostream>
-
 #include <ctime>
 #include <cstdlib>
 
@@ -15,13 +14,12 @@ void Enemy::Update() {
 
 void Enemy::Clear() {
 	for (size_t i = 0; i < enemyList.size(); i++) {
-   delete enemyList[i];
-	}
+	delete enemyList[i];}
 }
 
 void Enemy::Die(size_t idx) {
 	enemyList.erase (enemyList.begin()+idx);
-  delete enemyList[idx];
+	delete enemyList[idx];
 }
 
 void Enemy::Spawn(sf::RenderWindow& window) {
@@ -34,11 +32,15 @@ void Enemy::Spawn(sf::RenderWindow& window) {
 	}
 
 	// For every enemy in enemyList do
-	for (Enemy* enemy : enemyList) {
-		if (enemy->health > 0) { // Stop drawing if enemy health <= 0
-			window.draw(enemy->enemySprite);
-			enemy->Update();
-		} else {enemy->enemySprite.setPosition(-50, 0);}
+	for (size_t i = 0; i<enemyList.size(); i++) {
+		if (enemyList[i]->health > 0) { // Stop drawing and delete if enemy health <= 0
+			window.draw(enemyList[i]->enemySprite);
+			enemyList[i]->Update();
+		}
+		else {
+			delete enemyList[i];
+			enemyList.erase(enemyList.begin() + i);
+		}
 	}
 }
 
@@ -56,5 +58,5 @@ int Enemy::randRange(int low, int high) { return rand() % (high - low) + low;}
 
 Enemy::~Enemy()
 {
-	std::cout << "Enemy Deleted" << '\n';
+	//std::cout << "Enemy Deleted" << '\n';
 }

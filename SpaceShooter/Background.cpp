@@ -1,5 +1,5 @@
 #include "Background.h"
-#ifdef _WIN64
+#ifdef _WIN32
 	#include "SFML\Window.hpp"
 #endif
 

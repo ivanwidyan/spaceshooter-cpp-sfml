@@ -1,6 +1,6 @@
 #pragma once
 
-#ifdef _WIN64
+#ifdef _WIN32
 	#include "SFML\Graphics.hpp"
 #endif
 

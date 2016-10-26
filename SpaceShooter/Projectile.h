@@ -2,7 +2,7 @@
 #include "Enemy.h"
 #include "Projectile.h"
 
-#ifdef _WIN64
+#ifdef _WIN32
 	#include "SFML\Audio.hpp"
 	#include "SFML\Window.hpp"
 	#include "SFML\Graphics.hpp"

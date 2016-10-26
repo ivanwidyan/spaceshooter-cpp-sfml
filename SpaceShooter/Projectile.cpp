@@ -11,7 +11,7 @@ Projectile::Projectile(Player* player)
 
 void Projectile::Clear(){
 	for (size_t i = 0; i < projectileList.size(); i++) {
-   delete projectileList[i];
+	delete projectileList[i];
 	}
 }
 
@@ -42,15 +42,12 @@ void Projectile::Spawn(Player* player, std::vector<Enemy*> &enemylist, sf::Rende
 
 void Projectile::Colliding(Player* player, std::vector<Enemy*> &enemylist, Projectile* projectile) {
 	// If Colliding with enemy in enemyList, Stop drawing projectile, enemy health - 1, and player score + 100
-	// std::cout << enemylist.size() << "\n";
 	for (size_t i=0; i<enemylist.size(); i++){
 		if (projectileSprite.getGlobalBounds().intersects(enemylist[i]->enemySprite.getGlobalBounds())) {
 			enemylist[i]->health--;
 			player->score += 100;
 			projectile->collide = false;
 			projectile->projectileSprite.setPosition(0, -10);
-			delete enemylist[i];
-			enemylist.erase (enemylist.begin()+i);
 		}
 	}
 }
@@ -68,5 +65,5 @@ void Projectile::Start() {
 
 Projectile::~Projectile()
 {
-	std::cout << "Projectile Deleted" << '\n';
+	//std::cout << "Projectile Deleted" << '\n';
 }
