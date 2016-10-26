@@ -36,4 +36,5 @@ void Background::SetSpriteTexture(int y) {
 
 Background::~Background()
 {
+	std::cout << "Background deleted" << '\n';
 }
