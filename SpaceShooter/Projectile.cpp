@@ -16,6 +16,7 @@ void Projectile::Spawn(Player* player, std::vector<Enemy*> enemylist, sf::Render
 	Projectile* projectile = new Projectile(player);
 	projectile->projectileSprite.setPosition(sf::Vector2f(player->x, player->y -85)); // Set projectile spawn position in front of the player
 	sf::Time elapsed1 = clock.getElapsedTime();
+
 	if (elapsed1 >= sf::seconds(0.25f)) { // Spawn projectile every ... seconds
 		projectileList.push_back(projectile);
 		clock.restart();}
@@ -37,7 +38,7 @@ void Projectile::Colliding(Player* player, std::vector<Enemy*> enemylist, Projec
 			enemy->health--;
 			player->score += 100;
 			projectile->collide = false;
-			projectile->projectileSprite.setPosition(0, -10);
+			delete projectile;
 		}
 	}
 }
@@ -51,6 +52,7 @@ void Projectile::Start() {
 	// Adjusting the size
 	projectileSprite.setScale(sf::Vector2f(0.5, 0.5));
 	projectileSprite.setOrigin(sf::Vector2f(projectileSprite.getTexture()->getSize().x * 0.5, projectileSprite.getTexture()->getSize().y * 0.5));
+	// TODO Projectile SFX
 }
 
 Projectile::~Projectile()

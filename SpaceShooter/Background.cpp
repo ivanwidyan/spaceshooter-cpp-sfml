@@ -9,7 +9,7 @@ Background::Background(int y)
 
 void Background::Update(sf::RenderWindow& window) {
 	Looping();
-	backgroundSprite.move(sf::Vector2f(0, 0.2f));
+	backgroundSprite.move(sf::Vector2f(0, 0.5f));
 	window.draw(backgroundSprite);
 }
 

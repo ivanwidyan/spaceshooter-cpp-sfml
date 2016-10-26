@@ -11,7 +11,7 @@ public:
 
 	int randRange(int low, int high);
 	void Update();
-	void Spawn(sf::RenderWindow & window);
+	void Spawn(sf::RenderWindow&);
 	void SetSpriteTexture();
 
 	Enemy();

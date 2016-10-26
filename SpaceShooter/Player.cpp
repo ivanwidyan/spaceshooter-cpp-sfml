@@ -8,8 +8,8 @@ Player::Player(int playerNum)
 	playerNumber = playerNum;
 	SetSpriteTexture();
 	// Set different positions for player 1 and player 2
-	if (playerNumber == 1){x = 960; y = 540;}
-	else if (playerNumber == 2) { x = 320; y = 540; }
+	if (playerNumber == 1) {x = 320; y = 540;}
+	else if (playerNumber == 2){x = 960; y = 540;}
 }
 
 void Player::Update(sf::RenderWindow& window) {
@@ -60,10 +60,10 @@ void Player::SetSpriteTexture() {
 	if (playerNumber == 1) { 
 		if (!playerTexture.loadFromFile("Sprite/Player1.png")) {}
 		status = "Player2\n";
+		text.setPosition(1075, 0);
 	}
 	else if (playerNumber == 2) { if (!playerTexture.loadFromFile("Sprite/Player2.png")) {}
 		status = "Player1\n";
-		text.setPosition(1075, 0);
 	}
 	playerTexture.setSmooth(true);
 	playerSprite.setTexture(playerTexture);
