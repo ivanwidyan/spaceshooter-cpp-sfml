@@ -9,6 +9,12 @@ Projectile::Projectile(Player* player)
 	Start();
 }
 
+void Projectile::Clear(){
+	for (size_t i = 0; i < projectileList.size(); i++) {
+   delete projectileList[i];
+	}
+}
+
 void Projectile::Update() {
 	projectileSprite.move(sf::Vector2f(0, -3));} // Set the speed of projectile
 
@@ -45,7 +51,6 @@ void Projectile::Colliding(Player* player, std::vector<Enemy*> &enemylist, Proje
 			projectile->projectileSprite.setPosition(0, -10);
 			delete enemylist[i];
 			enemylist.erase (enemylist.begin()+i);
-
 		}
 	}
 }
