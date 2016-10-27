@@ -12,8 +12,12 @@
 #include "Background.h"
 
 int main() {
+
+
+
 	srand(time(NULL));
 	sf::RenderWindow window(sf::VideoMode(1280, 720), "Alien Invasion", sf::Style::Titlebar | sf::Style::Close);
+	window.setFramerateLimit(60);
 
 	//Create two players and projectile
 	Player* player1 = new Player(1);
@@ -27,6 +31,8 @@ int main() {
 	// Create Background
 	Background* background1 = new Background(0);
 	Background* background2 = new Background(-720);
+
+	sf::Clock frameClock;
 	while (window.isOpen()) {
 		sf::Event event;
 		while (window.pollEvent(event)) {
@@ -36,6 +42,7 @@ int main() {
 				break;
 			}
 		}
+		sf::Time frameTime = frameClock.restart();
 		window.clear();
 
 		// Draw background
@@ -55,8 +62,8 @@ int main() {
 		enemy->Spawn(window);
 
 		// Player 1 and 2 Controll and draw
-		player1->Update(window, enemy->enemyList);
-		player2->Update(window, enemy->enemyList);
+		player1->Update(window, enemy->enemyList,frameTime);
+		player2->Update(window, enemy->enemyList,frameTime);
 
 		// Display UI Score for Player 1 and PLayer 2
 		player1->ShowUI(window);
@@ -64,7 +71,8 @@ int main() {
 
 		window.display();
 	}
-	/*enemy->Clear();
+
+	enemy->Clear();
 	projectilePlayer1->Clear();
 	projectilePlayer2->Clear();
 	if (enemy) delete enemy;
@@ -73,5 +81,5 @@ int main() {
 	if (player1) delete player1;
 	if (player2) delete player2;
 	if (projectilePlayer1) delete projectilePlayer1;
-	if (projectilePlayer2) delete projectilePlayer2;*/
+	if (projectilePlayer2) delete projectilePlayer2;
 }

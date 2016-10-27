@@ -12,33 +12,39 @@ Player::Player(int playerNum)
 	else if (playerNumber == 2){x = 960; y = 540;}
 }
 
-void Player::Update(sf::RenderWindow& window, std::vector<Enemy*> &enemylist) {
-	if (visible){
-		if (health > 0) { // Activate all of the Player functions if health > 0
-			viciblecount=200;
-			playerSprite.setColor(sf::Color(255, 255, 255, 255));
-			playerSprite.setPosition(sf::Vector2f(x, y));
-			Controls();
-			Colliding(enemylist);
-			window.draw(playerSprite);
-		}
-		else {
-			// playerSprite.setPosition(sf::Vector2f(-640, y));
-			playerSprite.setColor(sf::Color(255, 255, 255, 0));
-			status = "Dead";
-		}
-	}else{
-		if (health > 0) { // Activate all of the Player functions if health > 0
-			playerSprite.setPosition(sf::Vector2f(x, y));
-			Controls();
-			// Colliding(enemylist);
-			Invicible();
-			window.draw(playerSprite);
-		}
-		else {
-			// playerSprite.setPosition(sf::Vector2f(-640, y));
-			playerSprite.setColor(sf::Color(255, 255, 255, 0));
-			status = "Dead";
+
+void Player::Update(sf::RenderWindow& window, std::vector<Enemy*> &enemylist,sf::Time deltaTime) {
+	m_currentTime += deltaTime;
+	m_frameTime = sf::seconds(0.01);
+	if (m_currentTime >= m_frameTime){
+		m_currentTime = sf::microseconds(m_currentTime.asMicroseconds() % m_frameTime.asMicroseconds());
+		if (visible){
+			if (health > 0) { // Activate all of the Player functions if health > 0
+				viciblecount=200;
+				playerSprite.setColor(sf::Color(255, 255, 255, 255));
+				playerSprite.setPosition(sf::Vector2f(x, y));
+				Controls();
+				Colliding(enemylist);
+				window.draw(playerSprite);
+			}
+			else {
+				// playerSprite.setPosition(sf::Vector2f(-640, y));
+				playerSprite.setColor(sf::Color(255, 255, 255, 0));
+				status = "Dead";
+			}
+		}else{
+			if (health > 0) { // Activate all of the Player functions if health > 0
+				playerSprite.setPosition(sf::Vector2f(x, y));
+				Controls();
+				// Colliding(enemylist);
+				Invicible();
+				window.draw(playerSprite);
+			}
+			else {
+				// playerSprite.setPosition(sf::Vector2f(-640, y));
+				playerSprite.setColor(sf::Color(255, 255, 255, 0));
+				status = "Dead";
+			}
 		}
 	}
 }

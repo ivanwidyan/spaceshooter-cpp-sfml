@@ -28,7 +28,7 @@ public:
 	void Colliding(std::vector<Enemy*> &enemylist);
 	void ShowUI(sf::RenderWindow & window);
 	void SetSpriteTexture();
-	void Update(sf::RenderWindow & window,std::vector<Enemy*> &enemylist);
+	void Update(sf::RenderWindow & window,std::vector<Enemy*> &enemylist,sf::Time deltaTime);
 
 	Player(int playerNum);
 	~Player();
@@ -36,6 +36,8 @@ public:
 private:
 	float forward = 0, back = 0, left = 0, right = 0;
 	std::string status;
+	sf::Time m_frameTime;
+  sf::Time m_currentTime;
 	sf::Texture playerTexture;
 	sf::Font font;
 };
