@@ -7,13 +7,15 @@
 #ifdef __unix__
 	#include <SFML/Graphics.hpp>
 #endif
-
+#include "Enemy.h"
 
 class Player
 {
 public:
 	int playerNumber = 0;
 	int health = 3;
+	int viciblecount;
+	bool visible = true;
 	float x = 0, y = 0;
 	float speed = 0;
 	int score = 0;
@@ -22,10 +24,11 @@ public:
 
 	void Controls();
 	void Inertia();
-	void Colliding();
+	void Invicible();
+	void Colliding(std::vector<Enemy*> &enemylist);
 	void ShowUI(sf::RenderWindow & window);
 	void SetSpriteTexture();
-	void Update(sf::RenderWindow & window);
+	void Update(sf::RenderWindow & window,std::vector<Enemy*> &enemylist);
 
 	Player(int playerNum);
 	~Player();
