@@ -1,12 +1,6 @@
 #pragma once
 
-#ifdef _WIN32
-	#include "SFML\Graphics.hpp"
-#endif
-
-#ifdef __unix__
-	#include <SFML/Graphics.hpp>
-#endif
+#include "SFML\Graphics.hpp"
 
 class Background
 {
