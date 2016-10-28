@@ -22,7 +22,6 @@ public:
 
 	void Controls();
 	void Inertia();
-	void Colliding();
 	void ShowUI(sf::RenderWindow & window);
 	void SetSpriteTexture();
 	void Update(sf::RenderWindow & window);
