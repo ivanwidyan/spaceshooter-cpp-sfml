@@ -12,12 +12,8 @@
 #include "Background.h"
 
 int main() {
-
-
-
 	srand(time(NULL));
 	sf::RenderWindow window(sf::VideoMode(1280, 720), "Alien Invasion", sf::Style::Titlebar | sf::Style::Close);
-	window.setFramerateLimit(60);
 
 	//Create two players and projectile
 	Player* player1 = new Player(1);
@@ -71,8 +67,7 @@ int main() {
 
 		window.display();
 	}
-
-	enemy->Clear();
+	/*enemy->Clear();
 	projectilePlayer1->Clear();
 	projectilePlayer2->Clear();
 	if (enemy) delete enemy;
@@ -81,5 +76,5 @@ int main() {
 	if (player1) delete player1;
 	if (player2) delete player2;
 	if (projectilePlayer1) delete projectilePlayer1;
-	if (projectilePlayer2) delete projectilePlayer2;
+	if (projectilePlayer2) delete projectilePlayer2;*/
 }

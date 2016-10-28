@@ -37,7 +37,7 @@ private:
 	float forward = 0, back = 0, left = 0, right = 0;
 	std::string status;
 	sf::Time m_frameTime;
-  sf::Time m_currentTime;
+	sf::Time m_currentTime;
 	sf::Texture playerTexture;
 	sf::Font font;
 };
