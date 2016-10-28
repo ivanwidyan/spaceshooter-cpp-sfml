@@ -12,7 +12,6 @@ Game::Game(int totalPlayers = 1) {
 	this->totalPlayers = totalPlayers;
 	//Create players and projectiles
 	players = new Player*[totalPlayers];
-	projectiles = new Projectile*[totalPlayers];
 	for (int i = 0; i < totalPlayers; i++) {
 		std::string path = "Sprite/Projectile" + std::to_string(i + 1);
 		path += ".png";
@@ -51,15 +50,15 @@ void Game::Run() { // Run game function
 
 void Game::SpawnEnemies() {
 	sf::Time elapsed1 = clock.getElapsedTime();
-	Enemy* enemy;
-	int randomEnemy = randRange(0, 2);
-	if (randomEnemy == 0) {
-		enemy = new Enemy();
-	}
-	else {
-		enemy = new EnemyDiagonal();
-	}
 	if (elapsed1 >= sf::seconds(2)) { // Spawn enemy for every ... seconds
+		Enemy* enemy;
+		int randomEnemy = randRange(0, 2);
+		if (randomEnemy == 0) {
+			enemy = new Enemy();
+		}
+		else {
+			enemy = new EnemyDiagonal();
+		}
 		enemyList.push_back(enemy);
 		enemy->enemySprite.setPosition(randRange(50, 1230), -25); // Random position for enemy
 		clock.restart();
@@ -88,10 +87,6 @@ Game::~Game() { // Clean up all unused items, FREE THE MEMORY!
 		delete[] players[i];
 	}
 	delete [] players;
-	for (int i = 0; i < totalPlayers; i++) {
-		delete[] projectiles[i];
-	}
-	delete[] projectiles;
 	for (size_t i = 0; i < enemyList.size(); i++) {
 		delete enemyList[i];
 		enemyList.erase(enemyList.begin() + i);

@@ -12,7 +12,6 @@ Enemy::Enemy()
 
 void Enemy::Update() {
 	Move();
-	if (enemySprite.getPosition().y > 800) { delete this; }
 }
 
 void Enemy::Move() {
@@ -20,7 +19,7 @@ void Enemy::Move() {
 }
 
 bool Enemy::Die() { // If Die is true, delete the enemy
-	if (health > 0) { return false; }
+	if (health > 0 && enemySprite.getPosition().y < 800) { return false; }
 	else { return true; }
 }
 
