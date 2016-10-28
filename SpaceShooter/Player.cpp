@@ -16,7 +16,6 @@ void Player::Update(sf::RenderWindow& window) {
 	if (health > 0) { // Activate all of the Player functions if health > 0
 		playerSprite.setPosition(sf::Vector2f(x, y));
 		Controls();
-		Colliding();
 		window.draw(playerSprite);
 	}
 	else {
@@ -87,18 +86,6 @@ void Player::Inertia() { // Give inertia effect to the player sprite
 	else { forward = 0; back = 0; left = 0; right = 0;	speed = 0; }
 }
 
-void Player::Colliding(std::vector<Enemy*> &enemylist) {
-	// If Colliding with enemy in enemyList, Stop drawing projectile, player health - 1, and !visible
-	if (visible){
-		for (size_t i=0; i<enemylist.size(); i++){
-			if (playerSprite.getGlobalBounds().intersects(enemylist[i]->enemySprite.getGlobalBounds())) {
-				health--;
-				visible = false;
-			}
-		}
-	}
-}
-
 void Player::ShowUI(sf::RenderWindow& window) { // Set and draw the UI for Player
 	text.setString(status + std::to_string(score));
 	window.draw(text);
@@ -129,18 +116,6 @@ void Player::SetSpriteTexture() {
 }
 
 //DUMMY
-void Player::Invicible() {
-	if (viciblecount > 0) {
-		if (viciblecount % 10 == 0){
-			playerSprite.setColor(sf::Color(255, 255, 255, 128));
-		}else{
-			playerSprite.setColor(sf::Color(255, 255, 255, 255));
-		}
-	}else{
-		visible = true;
-	}
-	viciblecount--;
-}
 
 Player::~Player()
 {
