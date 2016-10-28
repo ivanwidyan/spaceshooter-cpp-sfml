@@ -1,28 +1,26 @@
-#ifdef _WIN32
-	#include "SFML\Window.hpp"
-#endif
-
-#ifdef __unix__
-	#include <SFML/Window.hpp>
-#endif
+#include "SFML\Window.hpp"
 #include <iostream>
-#include "Game.h"
+#include "ObjectManager.h"
 
 int main() {
 	srand(time(NULL));
+	sf::RenderWindow window(sf::VideoMode(1280, 720), "Alien Invasion", sf::Style::Titlebar | sf::Style::Close);
 
-	Game game(2);	//Set the total players to 2
-	game.Run();
+	// Create an object Manager
+	ObjectManager* objectManager = new ObjectManager();
 
+	while (window.isOpen()) {
+		sf::Event event;
+		while (window.pollEvent(event)) {
+			if (event.type==sf::Event::Closed) {
+				window.close();
+				break;
+			}
+		}
+		window.clear();
 
-	/*enemy->Clear();
-	projectilePlayer1->Clear();
-	projectilePlayer2->Clear();
-	if (enemy) delete enemy;
-	if (background1) delete background1;
-	if (background2) delete background2;
-	if (player1) delete player1;
-	if (player2) delete player2;
-	if (projectilePlayer1) delete projectilePlayer1;
-	if (projectilePlayer2) delete projectilePlayer2;*/
+		// Update the Object Manager
+		objectManager->Update(window);
+		window.display();
+	}
 }
