@@ -115,7 +115,6 @@ void Player::SetSpriteTexture() {
 
 }
 
-//DUMMY
 
 Player::~Player()
 {
