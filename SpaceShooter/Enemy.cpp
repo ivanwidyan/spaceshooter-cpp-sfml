@@ -58,5 +58,5 @@ int Enemy::randRange(int low, int high) { return rand() % (high - low) + low;}
 
 Enemy::~Enemy()
 {
-	//std::cout << "Enemy Deleted" << '\n';
+	std::cout << "Enemy Deleted" << '\n';
 }
