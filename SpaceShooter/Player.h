@@ -27,7 +27,7 @@ public:
 	void BlinkSprite();
 	void Colliding(std::vector<Enemy*> &enemylist);
 	void ShowUI(sf::RenderWindow & window);
-	void SetSpriteTexture();
+	void SetPlayer();
 	void Update(sf::RenderWindow & window,std::vector<Enemy*> &enemylist);
 	void Shoot(sf::RenderWindow& window, std::vector<Enemy*> &enemylist);
 
@@ -38,6 +38,8 @@ private:
 	sf::Texture playerTexture;
 	sf::Font font;
 	sf::Clock clock; // Starts the clock
+	sf::Sound sound;
+	sf::SoundBuffer SFX_Shoot;
 	std::string status;
 	int blinkCount = 0;
 	float forward = 0, back = 0, left = 0, right = 0;

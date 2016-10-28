@@ -7,7 +7,7 @@
 
 Enemy::Enemy()
 {
-	SetSpriteTexture();
+	SetEnemy();
 }
 
 void Enemy::Update() {
@@ -24,7 +24,7 @@ bool Enemy::Die() { // If Die is true, delete the enemy
 	else { return true; }
 }
 
-void Enemy::SetSpriteTexture() { // Set Enemy Sprite texture, scale, origin
+void Enemy::SetEnemy() { // Set Enemy Sprite texture, scale, origin
 	if (!enemyTexture.loadFromFile("Sprite/Enemy1.png")) {}
 	enemyTexture.setSmooth(true);
 	enemySprite.setTexture(enemyTexture);

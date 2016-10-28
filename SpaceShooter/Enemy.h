@@ -1,9 +1,11 @@
 #pragma once
 #ifdef _WIN32
 	#include "SFML\Graphics.hpp"
+	#include "SFML\Audio.hpp"
 #endif
 #ifdef __unix__
 	#include <SFML/Graphics.hpp>
+	#include "SFML/Audio.hpp"
 #endif
 
 class Enemy
@@ -13,7 +15,8 @@ public:
 	float delay = 0;
 	sf::Sprite enemySprite;
 
-	void SetSpriteTexture();
+	void PlaySound();
+	void SetEnemy();
 	void Update();
 	virtual void Move();
 	bool Die();

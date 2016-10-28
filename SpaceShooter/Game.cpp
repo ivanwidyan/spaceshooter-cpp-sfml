@@ -12,7 +12,6 @@ Game::Game(int totalPlayers = 1) {
 	this->totalPlayers = totalPlayers;
 	//Create players and projectiles
 	players = new Player*[totalPlayers];
-	projectiles = new Projectile*[totalPlayers];
 	for (int i = 0; i < totalPlayers; i++) {
 		std::string path = "Sprite/Projectile" + std::to_string(i + 1);
 		path += ".png";
@@ -35,17 +34,24 @@ void Game::Run() { // Run game function
 				break;
 			}
 		}
-		window->clear();
-		// Draw background
-		background1->Update(*window);
-		background2->Update(*window);
-		// Spawn Enemies
-		SpawnEnemies();
-		for (int i = 0; i < totalPlayers; i++) {
-			players[i]->Update(*window, enemyList); // Player Controlls and draw
-			players[i]->ShowUI(*window); // Display UI Score for each Players
+		if (players[0]->health > 0 || players[1]->health > 0) {
+			window->clear();
+			// Draw background
+			background1->Update(*window);
+			background2->Update(*window);
+			// Spawn Enemies
+			SpawnEnemies();
+			for (int i = 0; i < totalPlayers; i++) {
+				players[i]->Update(*window, enemyList); // Player Controlls and draw
+				players[i]->ShowUI(*window); // Display UI Score for each Players
+			}
+			window->display();
 		}
-		window->display();
+		else {
+			window->clear();
+
+			window->display();
+		}
 	}
 }
 
@@ -88,10 +94,6 @@ Game::~Game() { // Clean up all unused items, FREE THE MEMORY!
 		delete[] players[i];
 	}
 	delete [] players;
-	for (int i = 0; i < totalPlayers; i++) {
-		delete[] projectiles[i];
-	}
-	delete[] projectiles;
 	for (size_t i = 0; i < enemyList.size(); i++) {
 		delete enemyList[i];
 		enemyList.erase(enemyList.begin() + i);

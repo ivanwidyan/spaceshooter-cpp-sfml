@@ -8,7 +8,7 @@ Player::Player(int playerNum, std::string projectileTexturePath)
 {
 	playerNumber = playerNum;
 	this->projectileTexturePath = projectileTexturePath;
-	SetSpriteTexture();
+	SetPlayer();
 	// Set different positions for player 1 and player 2
 	if (playerNumber == 1) {x = 320; y = 540;}
 	else if (playerNumber == 2){x = 960; y = 540;}
@@ -32,7 +32,7 @@ void Player::Update(sf::RenderWindow& window, std::vector<Enemy*> &enemylist) {
 		}
 	}
 	else { // If health <= 0
-		playerSprite.setPosition(sf::Vector2f(-640, y)); // To get rid of the player
+		playerSprite.setPosition(sf::Vector2f(-640, y));
 		playerSprite.setColor(sf::Color(255, 255, 255, 0));
 		status = "Dead\n";
 	}
@@ -115,7 +115,7 @@ void Player::ShowUI(sf::RenderWindow& window) { // Set and draw the UI for Playe
 	window.draw(text);
 }
 
-void Player::SetSpriteTexture() {
+void Player::SetPlayer() {
 	// Create text for UI
 	if (!font.loadFromFile("Font/BebasNeue.otf")) {}
 	text.setFont(font);
@@ -132,11 +132,12 @@ void Player::SetSpriteTexture() {
 	}
 	playerTexture.setSmooth(true);
 	playerSprite.setTexture(playerTexture);
-
 	// Adjusting the Player sprite size and set the origin to the middle
 	playerSprite.setScale(sf::Vector2f(0.2, 0.2));
 	playerSprite.setOrigin(sf::Vector2f(playerSprite.getTexture()->getSize().x * 0.5, playerSprite.getTexture()->getSize().y * 0.5));
-
+	// Set sound to shoot SFX
+	if (!SFX_Shoot.loadFromFile("SFX/shoot.ogg")) {}
+	sound.setBuffer(SFX_Shoot);
 }
 
 void Player::BlinkSprite() { //Blink player sprite 6 times. 
@@ -170,6 +171,7 @@ void Player::Shoot(sf::RenderWindow& window, std::vector<Enemy*> &enemylist) {
 		Projectile* projectile = new Projectile(-600, projectileTexturePath);
 		projectile->GetProjectileSprite().setPosition(sf::Vector2f(x, y - 85)); // Set projectile spawn position in front of the player
 		projectileList.push_back(projectile);
+		sound.play();
 		clock.restart();
 	}
 

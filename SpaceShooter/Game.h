@@ -31,7 +31,6 @@ class Game
 	sf::RenderWindow* window;
 	std::vector<Enemy*> enemyList;
 	Player** players;
-	Projectile** projectiles;
 	Background* background1;
 	Background* background2;
 
