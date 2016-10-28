@@ -1,5 +1,7 @@
 #pragma once
 #include "SFML\Graphics.hpp"
+#include "Enemy.h"
+#include <iostream>
 
 class Player
 {
@@ -14,11 +16,13 @@ public:
 
 	void Controls();
 	void Inertia();
-	void ShowUI(sf::RenderWindow & window);
+	void Invicible();
 	void SetSpriteTexture();
-	void Update(sf::RenderWindow & window);
+	void ShowUI(sf::RenderWindow & window);
+	void Colliding(std::vector<Enemy*>& enemylist);
 
 	Player(int playerNum);
+	void Update(sf::RenderWindow & window, std::vector<Enemy*>& enemylist);
 	~Player();
 
 private:

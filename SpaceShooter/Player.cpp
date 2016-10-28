@@ -1,10 +1,10 @@
 #include <iostream>
 #include <string>
 #include "Player.h"
+#include "Enemy.h"
 #include "Projectile.h"
 
-Player::Player(int playerNum)
-{
+Player::Player(int playerNum) {
 	playerNumber = playerNum;
 	SetSpriteTexture();
 	// Set different positions for player 1 and player 2
@@ -12,18 +12,45 @@ Player::Player(int playerNum)
 	else if (playerNumber == 2){x = 960; y = 540;}
 }
 
-void Player::Update(sf::RenderWindow& window) {
+void Player::Update(sf::RenderWindow& window, std::vector<Enemy*> &enemylist) {
 	if (health > 0) { // Activate all of the Player functions if health > 0
 		playerSprite.setPosition(sf::Vector2f(x, y));
+		Colliding(enemylist);
 		Controls();
 		window.draw(playerSprite);
 	}
 	else {
-		std::cout << "FUCK" << std::endl;
 		playerSprite.setPosition(sf::Vector2f(-640, y));
-		status = "Dead";
+		status = "Dead\n";
 	}
 }
+
+void Player::Colliding(std::vector<Enemy*> &enemylist) {
+	// If Colliding with enemy in enemyList, Stop drawing projectile, player health - 1, and !visible
+	for (size_t i = 0; i<enemylist.size(); i++) {
+		if (playerSprite.getGlobalBounds().intersects(enemylist[i]->enemySprite.getGlobalBounds())) {
+			health--;
+			delete enemylist[i];
+			enemylist.erase(enemylist.begin() + i);
+		}
+	}
+}
+
+// TODO make an invicible effect for a second
+/*void Player::Invicible() {
+	if (viciblecount > 0) {
+		if (viciblecount % 10 == 0) {
+			playerSprite.setColor(sf::Color(255, 255, 255, 128));
+		}
+		else {
+			playerSprite.setColor(sf::Color(255, 255, 255, 255));
+		}
+	}
+	else {
+		visible = true;
+	}
+	viciblecount--;
+}*/
 
 void Player::Controls() {
 	//Keyboard Controls for Player 1
@@ -112,11 +139,8 @@ void Player::SetSpriteTexture() {
 	// Adjusting the Player sprite size and set the origin to the middle
 	playerSprite.setScale(sf::Vector2f(0.2, 0.2));
 	playerSprite.setOrigin(sf::Vector2f(playerSprite.getTexture()->getSize().x * 0.5, playerSprite.getTexture()->getSize().y * 0.5));
-
 }
 
-
-Player::~Player()
-{
+Player::~Player() {
 	std::cout << "I am being deleted" << std::endl;
 }
