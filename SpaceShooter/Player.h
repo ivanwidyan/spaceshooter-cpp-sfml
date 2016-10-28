@@ -7,6 +7,7 @@
 #endif
 #include "Enemy.h"
 #include "Projectile.h"
+#include "SoundLoader.h"
 
 class Projectile;
 
@@ -38,12 +39,11 @@ private:
 	sf::Texture playerTexture;
 	sf::Font font;
 	sf::Clock clock; // Starts the clock
-	sf::Sound sound;
-	sf::SoundBuffer SFX_Shoot;
 	std::string status;
 	int blinkCount = 0;
 	float forward = 0, back = 0, left = 0, right = 0;
 	float spriteAlpha = 255;
+	SoundLoader *soundPlayer = new SoundLoader();
 
 	std::vector<Projectile*> projectileList;
 	std::string projectileTexturePath;

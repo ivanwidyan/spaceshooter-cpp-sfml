@@ -21,7 +21,10 @@ void Enemy::Move() {
 
 bool Enemy::Die() { // If Die is true, delete the enemy
 	if (health > 0) { return false; }
-	else { return true; }
+	else {
+		soundEnemy->PlaySound(EnemyDead);
+		return true;
+	}
 }
 
 void Enemy::SetEnemy() { // Set Enemy Sprite texture, scale, origin

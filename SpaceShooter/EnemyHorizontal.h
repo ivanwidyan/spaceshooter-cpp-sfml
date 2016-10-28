@@ -1,8 +1,7 @@
 #pragma once
 #include "Enemy.h"
 #include "SFML\Graphics.hpp"
-class EnemyDiagonal :
-	public Enemy
+class EnemyDiagonal : public Enemy // SubClassEnemy
 {
 	public:
 	void Move();

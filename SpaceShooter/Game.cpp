@@ -57,15 +57,15 @@ void Game::Run() { // Run game function
 
 void Game::SpawnEnemies() {
 	sf::Time elapsed1 = clock.getElapsedTime();
-	Enemy* enemy;
-	int randomEnemy = randRange(0, 2);
-	if (randomEnemy == 0) {
-		enemy = new Enemy();
-	}
-	else {
-		enemy = new EnemyDiagonal();
-	}
 	if (elapsed1 >= sf::seconds(2)) { // Spawn enemy for every ... seconds
+		Enemy* enemy;
+		int randomEnemy = randRange(0, 2);
+		if (randomEnemy == 0) {
+			enemy = new Enemy();
+		}
+		else {
+			enemy = new EnemyDiagonal();
+		}	
 		enemyList.push_back(enemy);
 		enemy->enemySprite.setPosition(randRange(50, 1230), -25); // Random position for enemy
 		clock.restart();

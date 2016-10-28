@@ -7,15 +7,14 @@
 	#include <SFML/Graphics.hpp>
 	#include "SFML/Audio.hpp"
 #endif
+#include "SoundLoader.h"
 
-class Enemy
-{
+class Enemy { // Enemy super class
 public:
 	int health = 1;
 	float delay = 0;
 	sf::Sprite enemySprite;
 
-	void PlaySound();
 	void SetEnemy();
 	void Update();
 	virtual void Move();
@@ -26,4 +25,5 @@ public:
 private:
 	sf::Clock clock;
 	sf::Texture enemyTexture;
+	SoundLoader *soundEnemy = new SoundLoader();
 };
