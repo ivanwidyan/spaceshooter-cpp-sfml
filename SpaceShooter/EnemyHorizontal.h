@@ -1,5 +1,6 @@
 #pragma once
 #include "Enemy.h"
+#include "SFML\Graphics.hpp"
 class EnemyDiagonal :
 	public Enemy
 {
@@ -10,6 +11,7 @@ class EnemyDiagonal :
 	~EnemyDiagonal();
 
 	private:
+	sf::Texture enemyRed;
 	bool moveLeft;
 };
 

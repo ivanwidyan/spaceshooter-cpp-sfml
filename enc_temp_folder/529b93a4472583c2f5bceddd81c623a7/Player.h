@@ -37,7 +37,7 @@ public:
 private:
 	sf::Texture playerTexture;
 	sf::Font font;
-	sf::Clock clock; // Starts the clock
+	sf::Clock clock; // starts the clock
 	std::string status;
 	int blinkCount = 0;
 	float forward = 0, back = 0, left = 0, right = 0;

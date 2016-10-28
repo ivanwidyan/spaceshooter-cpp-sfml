@@ -6,9 +6,7 @@
 
 Projectile::Projectile(float speed, std::string texturePath) {
 	this->speed = speed;
-	if (!projectileTexture.loadFromFile(texturePath)) {
-		std::cout << "Can't load texture" << std::endl;
-	}
+	if (!projectileTexture.loadFromFile(texturePath)) {	std::cout << "Can't load texture" << std::endl;	}
 	projectileTexture.setSmooth(true);
 	projectileSprite.setTexture(projectileTexture);
 	// Adjusting the size
@@ -17,13 +15,11 @@ Projectile::Projectile(float speed, std::string texturePath) {
 }
 
 void Projectile::Update() {
-	//projectileSprite.move(sf::Vector2f(0, -3));	// Set the speed of projectile
-	projectileSprite.move(sf::Vector2f(0, speed * timesec::deltaTime));		// Set the speed of projectile
+	projectileSprite.move(sf::Vector2f(0, speed * timesec::deltaTime)); // Set the speed of projectile
 } 
 
 void Projectile::Colliding(Player* player, std::vector<Enemy*> &enemylist, Projectile* projectile) {
-	// If Colliding with enemy in enemyList, Stop drawing projectile, enemy health - 1, and player score + 100
-	for (size_t i=0; i<enemylist.size(); i++){
+	for (size_t i=0; i<enemylist.size(); i++){ // If Colliding with enemy in enemyList, Stop drawing projectile, enemy health - 1, and player score + 100
 		if (projectileSprite.getGlobalBounds().intersects(enemylist[i]->enemySprite.getGlobalBounds())) {
 			enemylist[i]->health--;
 			player->score += 100;
@@ -39,5 +35,4 @@ sf::Sprite & Projectile::GetProjectileSprite() {
 
 Projectile::~Projectile()
 {
-	//std::cout << "Projectile Deleted" << '\n';
 }

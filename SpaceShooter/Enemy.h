@@ -1,9 +1,7 @@
 #pragma once
-
 #ifdef _WIN32
 	#include "SFML\Graphics.hpp"
 #endif
-
 #ifdef __unix__
 	#include <SFML/Graphics.hpp>
 #endif
@@ -15,10 +13,10 @@ public:
 	float delay = 0;
 	sf::Sprite enemySprite;
 
+	void SetSpriteTexture();
 	void Update();
 	virtual void Move();
 	bool Die();
-	void SetSpriteTexture();
 
 	Enemy();
 	~Enemy();

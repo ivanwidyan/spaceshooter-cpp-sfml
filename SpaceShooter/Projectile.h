@@ -25,7 +25,6 @@ public:
 	~Projectile();
 
 	bool collide = false;
-
 	void Update();
 	void Colliding(Player *player, std::vector<Enemy*> &enemylist, Projectile * projectile);
 	sf::Sprite & GetProjectileSprite();

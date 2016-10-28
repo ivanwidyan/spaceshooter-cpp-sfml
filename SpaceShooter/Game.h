@@ -25,13 +25,13 @@ class Game
 	~Game();
 
 	private:
+	int totalPlayers;
 	Time time;
 	sf::Clock clock;
 	sf::RenderWindow* window;
-	int totalPlayers;
+	std::vector<Enemy*> enemyList;
 	Player** players;
 	Projectile** projectiles;
-	std::vector<Enemy*> enemyList;
 	Background* background1;
 	Background* background2;
 

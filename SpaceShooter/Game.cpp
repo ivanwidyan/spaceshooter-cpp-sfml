@@ -1,7 +1,5 @@
 #include "Game.h"
 #include "Time.h"
-
-#include <iostream>
 #include <string>
 #include "Player.h"
 #include "Projectile.h"
@@ -9,12 +7,9 @@
 #include "EnemyHorizontal.h"
 #include "Background.h"
 
-
 Game::Game(int totalPlayers = 1) {
 	window = new sf::RenderWindow(sf::VideoMode(1280, 720), "Alien Invasion", sf::Style::Titlebar | sf::Style::Close);
-
 	this->totalPlayers = totalPlayers;
-
 	//Create players and projectiles
 	players = new Player*[totalPlayers];
 	projectiles = new Projectile*[totalPlayers];
@@ -29,9 +24,7 @@ Game::Game(int totalPlayers = 1) {
 	background2 = new Background(-720);
 }
 
-int Game::randRange(int low, int high) { return rand() % (high - low) + low; }
-
-void Game::Run() {
+void Game::Run() { // Run game function
 	while (window->isOpen()) {
 		time.Update();
 		sf::Event event;
@@ -43,19 +36,15 @@ void Game::Run() {
 			}
 		}
 		window->clear();
-
 		// Draw background
 		background1->Update(*window);
 		background2->Update(*window);
-
 		// Spawn Enemies
 		SpawnEnemies();
-
 		for (int i = 0; i < totalPlayers; i++) {
-			players[i]->Update(*window, enemyList);		// Player Controlls and draw
-			players[i]->ShowUI(*window);		// Display UI Score for each Players
+			players[i]->Update(*window, enemyList); // Player Controlls and draw
+			players[i]->ShowUI(*window); // Display UI Score for each Players
 		}
-
 		window->display();
 	}
 }
@@ -82,25 +71,29 @@ void Game::SpawnEnemies() {
 		if (!enemyList[i]->Die()) { // Check whether enemy is dead or not
 			window->draw(enemyList[i]->enemySprite);
 		}
-		else {
+		else { // Delete enemy
+			delete enemyList[i];
 			enemyList.erase(enemyList.begin() + i);
 		}
 	}
 }
 
-Game::~Game() {
-	for (int i = 0; i < totalPlayers; i++) {
-		delete players[i];
-		delete projectiles[i];
-	}
+int Game::randRange(int low, int high) { return rand() % (high - low) + low; }
 
-	delete[] players;
-	delete[] projectiles;
+Game::~Game() { // Clean up all unused items, FREE THE MEMORY!
 	delete background1;
 	delete background2;
 	delete window;
-
+	for (int i = 0; i < totalPlayers; i++) {
+		delete[] players[i];
+	}
+	delete [] players;
+	for (int i = 0; i < totalPlayers; i++) {
+		delete[] projectiles[i];
+	}
+	delete[] projectiles;
 	for (size_t i = 0; i < enemyList.size(); i++) {
 		delete enemyList[i];
+		enemyList.erase(enemyList.begin() + i);
 	}
 }

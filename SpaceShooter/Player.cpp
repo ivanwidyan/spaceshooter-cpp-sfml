@@ -15,34 +15,26 @@ Player::Player(int playerNum, std::string projectileTexturePath)
 }
 
 void Player::Update(sf::RenderWindow& window, std::vector<Enemy*> &enemylist) {
-	Shoot(window, enemylist);
-
-	if (vulnerable){
-		if (health > 0) { // Activate all of the Player functions if health > 0
+	if (health > 0) { // Activate all of the Player functions if health > 0
+		Shoot(window, enemylist);
+		if (vulnerable) { // If vulnerable do
 			playerSprite.setColor(sf::Color(255, 255, 255, 255));
 			playerSprite.setPosition(sf::Vector2f(x, y));
 			Controls();
 			Colliding(enemylist);
 			window.draw(playerSprite);
 		}
-		else {
-			// playerSprite.setPosition(sf::Vector2f(-640, y));
-			playerSprite.setColor(sf::Color(255, 255, 255, 0));
-			status = "Dead";
-		}
-	}else{
-		if (health > 0) { // Activate all of the Player functions if health > 0
+		else { // If !vulnerable do, without colliding enemy
 			playerSprite.setPosition(sf::Vector2f(x, y));
 			Controls();
-			// Colliding(enemylist);
 			BlinkSprite();
 			window.draw(playerSprite);
 		}
-		else {
-			// playerSprite.setPosition(sf::Vector2f(-640, y));
-			playerSprite.setColor(sf::Color(255, 255, 255, 0));
-			status = "Dead";
-		}
+	}
+	else { // If health <= 0
+		playerSprite.setPosition(sf::Vector2f(-640, y)); // To get rid of the player
+		playerSprite.setColor(sf::Color(255, 255, 255, 0));
+		status = "Dead\n";
 	}
 }
 
@@ -70,7 +62,7 @@ void Player::Controls() {
 			if (speed <= 1.0) { speed += 40 * timesec::deltaTime; }
 			back = speed;
 		}
-		else { Inertia(); } // Start the inertia
+		else { Inertia(); } // Start the inertia for Player 1
 	}
 
 	//Keyboard Controls for Player 2
@@ -95,7 +87,7 @@ void Player::Controls() {
 			if (speed <= 1.0) { speed += 40 * timesec::deltaTime; }
 			back = speed;
 		}
-		else { Inertia(); } // Start the inertia
+		else { Inertia(); } // Start the inertia for Player 2
 	}
 }
 
@@ -107,14 +99,13 @@ void Player::Inertia() { // Give inertia effect to the player sprite
 	else { forward = 0; back = 0; left = 0; right = 0;	speed = 0; }
 }
 
-void Player::Colliding(std::vector<Enemy*> &enemylist) {
-	// If Colliding with enemy in enemyList, Stop drawing projectile, player health - 1, and !visible
-	if (vulnerable){
-		for (size_t i=0; i<enemylist.size(); i++){
-			if (playerSprite.getGlobalBounds().intersects(enemylist[i]->enemySprite.getGlobalBounds())) {
-				health--;
-				vulnerable = false;
-			}
+void Player::Colliding(std::vector<Enemy*> &enemylist) { // If Colliding with enemy in enemyList, player health - 1, and !vulnerable
+	for (size_t i=0; i<enemylist.size(); i++){
+		if (playerSprite.getGlobalBounds().intersects(enemylist[i]->enemySprite.getGlobalBounds())) {
+			delete enemylist[i];
+			enemylist.erase(enemylist.begin() + i);
+			health--;
+			vulnerable = false;
 		}
 	}
 }
@@ -148,11 +139,9 @@ void Player::SetSpriteTexture() {
 
 }
 
-void Player::BlinkSprite() {
-
-	//Blink player sprite 6 times. 
+void Player::BlinkSprite() { //Blink player sprite 6 times. 
 	if (blinkCount < 6) {
-		if (blinkCount % 2 != 0) {		//Increase Alpha
+		if (blinkCount % 2 != 0) { //Increase Alpha
 			spriteAlpha += 400 * timesec::deltaTime;
 			if (spriteAlpha >= 255) {
 				spriteAlpha = 255;
@@ -160,7 +149,7 @@ void Player::BlinkSprite() {
 			}
 			playerSprite.setColor(sf::Color(255, 255, 255, spriteAlpha));
 		}
-		else {							//Decrease Alpha
+		else { //Decrease Alpha
 			spriteAlpha -= 400 * timesec::deltaTime;
 			if (spriteAlpha <= 50) {
 				spriteAlpha = 50;
@@ -171,8 +160,6 @@ void Player::BlinkSprite() {
 	}
 	else {
 		blinkCount = 0;
-		spriteAlpha = 255;
-		playerSprite.setColor(sf::Color(255, 255, 255, 255));
 		vulnerable = true;
 	}
 }
@@ -202,8 +189,4 @@ void Player::Shoot(sf::RenderWindow& window, std::vector<Enemy*> &enemylist) {
 
 Player::~Player()
 {
-	std::cout << "I am being deleted" << std::endl;
-	for (size_t i = 0; i < projectileList.size(); i++) {
-		delete projectileList[i];
-	}
 }

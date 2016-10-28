@@ -12,7 +12,6 @@ class Time
 {
 	public:
 	void Update();
-
 	Time();
 	~Time();
 
@@ -24,9 +23,7 @@ class Time
 
 //This package handles Time with unit of seconds
 namespace timesec {
-
 	extern float timeScale;
-	extern float deltaTime;
-		
+	extern float deltaTime;	
 }
 
