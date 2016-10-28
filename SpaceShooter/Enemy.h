@@ -1,18 +1,23 @@
 #pragma once
-#include "SFML\Graphics.hpp"
+
+#ifdef _WIN32
+	#include "SFML\Graphics.hpp"
+#endif
+
+#ifdef __unix__
+	#include <SFML/Graphics.hpp>
+#endif
 
 class Enemy
 {
 public:
 	int health = 1;
 	float delay = 0;
-	std::vector<Enemy*> enemyList;
 	sf::Sprite enemySprite;
 
-	int randRange(int low, int high);
 	void Update();
-	void Clear();
-	void Spawn(sf::RenderWindow & window);
+	virtual void Move();
+	bool Die();
 	void SetSpriteTexture();
 
 	Enemy();

@@ -1,3 +1,5 @@
+#include "Time.h"
+#include "Game.h"
 #include "Enemy.h"
 #include <iostream>
 #include <ctime>
@@ -9,33 +11,22 @@ Enemy::Enemy()
 }
 
 void Enemy::Update() {
-	enemySprite.move(sf::Vector2f(0, 0.5f)); // Move y 0.25 every update
-}
-
-void Enemy::Clear() {
-	for (size_t i = 0; i < enemyList.size(); i++) {
-	delete enemyList[i];}
-}
-
-void Enemy::Spawn(sf::RenderWindow& window) {
-	sf::Time elapsed1 = clock.getElapsedTime();
-	Enemy* enemy = new Enemy();
-	if (elapsed1 >= sf::seconds(2)) { // Spawn enemy for every ... seconds
-		enemyList.push_back(enemy);
-		enemy->enemySprite.setPosition(enemy->randRange(50, 1230), -25); // Random position for enemy
-		clock.restart();
+	Move();
+	if (enemySprite.getPosition().y > 800) {
+		delete this;
 	}
+}
 
-	// For every enemy in enemyList do
-	for (size_t i = 0; i<enemyList.size(); i++) {
-		if (enemyList[i]->health > 0) { // Stop drawing and delete if enemy health <= 0
-			window.draw(enemyList[i]->enemySprite);
-			enemyList[i]->Update();
-		}
-		else {
-			delete enemyList[i];
-			enemyList.erase(enemyList.begin() + i);
-		}
+void Enemy::Move() {
+	enemySprite.move(sf::Vector2f(0, 100.0f * timesec::deltaTime));		//Move y 100 every second
+}
+
+bool Enemy::Die() {
+	if (health > 0) { // Stop drawing and delete if enemy health <= 0
+		return false;
+	}
+	else {
+		return true;
 	}
 }
 
@@ -49,9 +40,8 @@ void Enemy::SetSpriteTexture() {
 	enemySprite.setOrigin(sf::Vector2f(enemySprite.getTexture()->getSize().x * 0.5, enemySprite.getTexture()->getSize().y * 0.5));
 }
 
-int Enemy::randRange(int low, int high) { return rand() % (high - low) + low;}
-
 Enemy::~Enemy()
 {
-	std::cout << "Enemy Deleted" << '\n';
+	//std::cout << "Enemy Deleted" << '\n';
+	
 }
