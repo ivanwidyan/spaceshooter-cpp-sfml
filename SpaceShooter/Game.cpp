@@ -21,6 +21,14 @@ Game::Game(int totalPlayers = 1) {
 	// Create Background
 	background1 = new Background(0);
 	background2 = new Background(-720);
+
+	// Create a Lose Screen
+	if (!font.loadFromFile("Font/BebasNeue.otf")) {}
+	GameOver.setFont(font);
+	GameOver.setColor(sf::Color::White);
+	GameOver.setCharacterSize(72);
+	GameOver.setPosition(640, 360);
+	GameOver.setString("You Lose!");
 }
 
 void Game::Run() { // Run game function
@@ -49,7 +57,7 @@ void Game::Run() { // Run game function
 		}
 		else {
 			window->clear();
-
+			window->draw(GameOver); // Show Lose Screen
 			window->display();
 		}
 	}

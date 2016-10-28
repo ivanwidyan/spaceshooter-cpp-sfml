@@ -14,8 +14,7 @@ void SoundLoader::LoadSounds()
 
 void SoundLoader::PlaySound(SoundName soundName)
 {
-	switch (soundName)
-	{
+	switch (soundName) {
 	case EnemyDead:
 		enemy_sound.setBuffer(SFX_EnemyDead);
 		enemy_sound.play();

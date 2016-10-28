@@ -29,10 +29,11 @@ class Game
 	Time time;
 	sf::Clock clock;
 	sf::RenderWindow* window;
+	sf::Text GameOver;
+	sf::Font font;
 	std::vector<Enemy*> enemyList;
 	Player** players;
 	Background* background1;
 	Background* background2;
-
 };
 
