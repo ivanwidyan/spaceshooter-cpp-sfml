@@ -20,6 +20,7 @@ void Player::Update(sf::RenderWindow& window) {
 		window.draw(playerSprite);
 	}
 	else {
+		std::cout << "FUCK" << std::endl;
 		playerSprite.setPosition(sf::Vector2f(-640, y));
 		status = "Dead";
 	}
