@@ -21,7 +21,7 @@ void Projectile::Update() {
 	projectileSprite.move(sf::Vector2f(0, speed * timesec::deltaTime));		// Set the speed of projectile
 } 
 
-void Projectile::Colliding(Player* player, std::vector<Enemy*> &enemylist, Projectile* projectile) {
+void Projectile::Colliding(Player* player, std::vector<Enemy*> &enemylist, Projectile* projectile) { // On Collision function for projectile
 	// If Colliding with enemy in enemyList, Stop drawing projectile, enemy health - 1, and player score + 100
 	for (size_t i=0; i<enemylist.size(); i++){
 		if (projectileSprite.getGlobalBounds().intersects(enemylist[i]->enemySprite.getGlobalBounds())) {
