@@ -87,9 +87,16 @@ void Player::Inertia() { // Give inertia effect to the player sprite
 	else { forward = 0; back = 0; left = 0; right = 0;	speed = 0; }
 }
 
-void Player::Colliding() {
-	// TODO Make a colliding with enemy and projectile
-	// if Collide with projectile health --;
+void Player::Colliding(std::vector<Enemy*> &enemylist) {
+	// If Colliding with enemy in enemyList, Stop drawing projectile, player health - 1, and !visible
+	if (visible){
+		for (size_t i=0; i<enemylist.size(); i++){
+			if (playerSprite.getGlobalBounds().intersects(enemylist[i]->enemySprite.getGlobalBounds())) {
+				health--;
+				visible = false;
+			}
+		}
+	}
 }
 
 void Player::ShowUI(sf::RenderWindow& window) { // Set and draw the UI for Player
@@ -104,7 +111,7 @@ void Player::SetSpriteTexture() {
 	text.setColor(sf::Color::Black);
 	text.setCharacterSize(72);
 	// Set different sprite for player 1 and player 2
-	if (playerNumber == 1) { 
+	if (playerNumber == 1) {
 		if (!playerTexture.loadFromFile("Sprite/Player1.png")) {}
 		status = "Player2\n";
 		text.setPosition(1075, 0);
@@ -114,19 +121,26 @@ void Player::SetSpriteTexture() {
 	}
 	playerTexture.setSmooth(true);
 	playerSprite.setTexture(playerTexture);
+
 	// Adjusting the Player sprite size and set the origin to the middle
 	playerSprite.setScale(sf::Vector2f(0.2, 0.2));
 	playerSprite.setOrigin(sf::Vector2f(playerSprite.getTexture()->getSize().x * 0.5, playerSprite.getTexture()->getSize().y * 0.5));
 
-	
 }
 
-/* // TODO make the plane invicible for some time
-	// Give blink effect
+//DUMMY
 void Player::Invicible() {
-sprite.setColor(sf::Color(255, 255, 255, 128));
+	if (viciblecount > 0) {
+		if (viciblecount % 10 == 0){
+			playerSprite.setColor(sf::Color(255, 255, 255, 128));
+		}else{
+			playerSprite.setColor(sf::Color(255, 255, 255, 255));
+		}
+	}else{
+		visible = true;
+	}
+	viciblecount--;
 }
-*/
 
 Player::~Player()
 {
