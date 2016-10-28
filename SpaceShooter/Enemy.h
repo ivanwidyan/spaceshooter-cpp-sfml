@@ -12,7 +12,6 @@ public:
 	int randRange(int low, int high);
 	void Update();
 	void Clear();
-	void Die(size_t idx);
 	void Spawn(sf::RenderWindow & window);
 	void SetSpriteTexture();
 
