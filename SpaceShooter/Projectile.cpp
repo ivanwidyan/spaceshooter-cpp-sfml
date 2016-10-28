@@ -6,7 +6,9 @@
 Projectile::Projectile(Player* player)
 {
 	playerNum = player->playerNumber; // Check the player number
-	Start();
+	if (player->health > 0) {
+		Start();
+	}
 }
 
 void Projectile::Clear(){

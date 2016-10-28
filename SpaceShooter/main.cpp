@@ -1,10 +1,4 @@
-#ifdef _WIN32
-	#include "SFML\Window.hpp"
-#endif
-
-#ifdef __unix__
-	#include <SFML/Window.hpp>
-#endif
+#include "SFML\Window.hpp"
 #include <iostream>
 #include "Player.h"
 #include "Projectile.h"
@@ -27,6 +21,8 @@ int main() {
 	// Create Background
 	Background* background1 = new Background(0);
 	Background* background2 = new Background(-720);
+
+	sf::Clock frameClock;
 	while (window.isOpen()) {
 		sf::Event event;
 		while (window.pollEvent(event)) {
@@ -36,6 +32,7 @@ int main() {
 				break;
 			}
 		}
+		sf::Time frameTime = frameClock.restart();
 		window.clear();
 
 		// Draw background
@@ -55,8 +52,8 @@ int main() {
 		enemy->Spawn(window);
 
 		// Player 1 and 2 Controll and draw
-		player1->Update(window);
-		player2->Update(window);
+		player1->Update(window, enemy->enemyList);
+		player2->Update(window, enemy->enemyList);
 
 		// Display UI Score for Player 1 and PLayer 2
 		player1->ShowUI(window);

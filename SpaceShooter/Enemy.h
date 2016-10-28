@@ -1,12 +1,5 @@
 #pragma once
-
-#ifdef _WIN32
-	#include "SFML\Graphics.hpp"
-#endif
-
-#ifdef __unix__
-	#include <SFML/Graphics.hpp>
-#endif
+#include "SFML\Graphics.hpp"
 
 class Enemy
 {
@@ -19,7 +12,6 @@ public:
 	int randRange(int low, int high);
 	void Update();
 	void Clear();
-	void Die(size_t idx);
 	void Spawn(sf::RenderWindow & window);
 	void SetSpriteTexture();
 

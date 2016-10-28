@@ -1,19 +1,9 @@
 #pragma once
 #include "Enemy.h"
 #include "Projectile.h"
-
-#ifdef _WIN32
-	#include "SFML\Audio.hpp"
-	#include "SFML\Window.hpp"
-	#include "SFML\Graphics.hpp"
-#endif
-
-#ifdef __unix__
-	#include <SFML/Graphics.hpp>
-	#include <SFML/Window.hpp>
-	#include <SFML/Audio.hpp>
-#endif
-
+#include "SFML\Audio.hpp"
+#include "SFML\Window.hpp"
+#include "SFML\Graphics.hpp"
 #include "Player.h"
 
 class Projectile
