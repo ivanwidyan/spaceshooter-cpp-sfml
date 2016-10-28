@@ -21,7 +21,6 @@ int main() {
 
 		// Update the Object Manager
 		objectManager->Update(window);
-
 		window.display();
 	}
 }

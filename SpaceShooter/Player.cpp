@@ -19,10 +19,6 @@ void Player::Update(sf::RenderWindow& window, std::vector<Enemy*> &enemylist) {
 		Controls();
 		window.draw(playerSprite);
 	}
-	else {
-		playerSprite.setPosition(sf::Vector2f(-640, y));
-		status = "Dead\n";
-	}
 }
 
 void Player::Colliding(std::vector<Enemy*> &enemylist) {
@@ -113,26 +109,10 @@ void Player::Inertia() { // Give inertia effect to the player sprite
 	else { forward = 0; back = 0; left = 0; right = 0;	speed = 0; }
 }
 
-void Player::ShowUI(sf::RenderWindow& window) { // Set and draw the UI for Player
-	text.setString(status + std::to_string(score));
-	window.draw(text);
-}
-
 void Player::SetSpriteTexture() {
-	// Create text for UI
-	if (!font.loadFromFile("Font/BebasNeue.otf")) {}
-	text.setFont(font);
-	text.setColor(sf::Color::Black);
-	text.setCharacterSize(72);
 	// Set different sprite for player 1 and player 2
-	if (playerNumber == 1) {
-		if (!playerTexture.loadFromFile("Sprite/Player1.png")) {}
-		status = "Player2\n";
-		text.setPosition(1075, 0);
-	}
-	else if (playerNumber == 2) { if (!playerTexture.loadFromFile("Sprite/Player2.png")) {}
-		status = "Player1\n";
-	}
+	if (playerNumber == 1) {if (!playerTexture.loadFromFile("Sprite/Player1.png")) {}}
+	else if (playerNumber == 2) { if (!playerTexture.loadFromFile("Sprite/Player2.png")) {}}
 	playerTexture.setSmooth(true);
 	playerSprite.setTexture(playerTexture);
 

@@ -9,7 +9,10 @@
 class ObjectManager
 {
 public:
+	int Score_Player1 = 0, Score_Player2 = 0;
 	void Update(sf::RenderWindow &window);
+
+	void SetUI();
 
 	// Create two players
 	Player* player1 = new Player(1);
@@ -26,5 +29,9 @@ public:
 
 	ObjectManager();
 	~ObjectManager();
+
+private:
+	sf::Text P1_text, P2_text;
+	sf::Font font;
 };
 
