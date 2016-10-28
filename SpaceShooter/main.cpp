@@ -52,8 +52,8 @@ int main() {
 		enemy->Spawn(window);
 
 		// Player 1 and 2 Controll and draw
-		player1->Update(window, enemy->enemyList,frameTime);
-		player2->Update(window, enemy->enemyList,frameTime);
+		player1->Update(window, enemy->enemyList);
+		player2->Update(window, enemy->enemyList);
 
 		// Display UI Score for Player 1 and PLayer 2
 		player1->ShowUI(window);
