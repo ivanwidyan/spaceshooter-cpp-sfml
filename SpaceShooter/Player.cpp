@@ -167,7 +167,6 @@ void Player::Shoot(sf::RenderWindow& window, std::vector<Enemy*> &enemylist) {
 		Projectile* projectile = new Projectile(-600, projectileTexturePath);
 		projectile->GetProjectileSprite().setPosition(sf::Vector2f(x, y - 85)); // Set projectile spawn position in front of the player
 		projectileList.push_back(projectile);
-		soundPlayer->PlaySound(PlayerShoot); // Play Sound Player Shoot
 		clock.restart();
 	}
 
@@ -187,5 +186,5 @@ void Player::Shoot(sf::RenderWindow& window, std::vector<Enemy*> &enemylist) {
 
 Player::~Player()
 {
-	soundPlayer->PlaySound(PlayerDead);
+	
 }

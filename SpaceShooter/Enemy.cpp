@@ -22,7 +22,6 @@ void Enemy::Move() {
 bool Enemy::Die() { // If Die is true, delete the enemy
 	if (health > 0) { return false; }
 	else {
-		soundEnemy->PlaySound(EnemyDead); // Play Sound Enemy Dead
 		return true;
 	}
 }

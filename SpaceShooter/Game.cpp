@@ -86,7 +86,6 @@ void Game::SpawnEnemies() {
 			window->draw(enemyList[i]->enemySprite);
 		}
 		else { // Delete enemy
-			delete enemyList[i];
 			enemyList.erase(enemyList.begin() + i);
 		}
 	}
