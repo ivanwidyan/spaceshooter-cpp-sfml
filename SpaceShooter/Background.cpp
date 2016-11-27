@@ -1,5 +1,11 @@
 #include "Background.h"
-#include "SFML\Window.hpp"
+#ifdef _WIN32
+	#include "SFML\Window.hpp"
+#endif
+
+#ifdef __unix__
+	#include <SFML/Window.hpp>
+#endif
 #include <iostream>
 
 Background::Background(int y)
@@ -30,5 +36,4 @@ void Background::SetSpriteTexture(int y) {
 
 Background::~Background()
 {
-	std::cout << "Background deleted" << '\n';
 }
